@@ -24,7 +24,7 @@ if (session::get('is_login')) {
       $i= $ids;
     }
     $status="pending";
-    $query="SELECT  name,address,product_id,time,SUM(price) FROM checkout WHERE user_id='$row[id]' AND (product_id IN ('$i')) AND (size IN ('$s')) AND status='$status'";
+    $query="SELECT  name,address,product_id,time,SUM(price) FROM checkout WHERE user_id='$row[id]' AND status='$status' AND (product_id IN ('$i')) OR (size IN ('$s'))";
     $result=$conn->query($query);
     if($result->num_rows>0){
       while($rows=$result->fetch_assoc()){
