@@ -8,7 +8,7 @@
         $query="SELECT * FROM mens WHERE product_id='$id'";
         $result=$conn->query($query);
         while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
-        <form class="row px-xl-5" action="" method="POST" class="needs-validation" novalidate>
+        <form class="row px-xl-5 needs-validation" action="" method="POST" novalidate>
             <input type="hidden" value="<?php echo $id; ?>" name="id1">
             <div class="col-lg-5 pb-5">
                 <div id="demo" class="carousel slide" data-ride="carousel">
