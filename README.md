@@ -1,6 +1,6 @@
 # myshop
 
-First download project after download, unzip the folder. create database my-shop. import sql file phpmyadmin. create a my-shop folder inside htdocs. after that unzip folder import into my-shop folder. create google api client id and secret key (https://console.cloud.google.com/). create google capcha secret key (https://www.google.com/recaptcha/admin/create). create new google account account. after create account must be enable two factor authentication and enable less secure app access. all the key and id enter into correct place. finally type the url http://localhost/my-shop/ or http://localhost/my-shop/login or http://localhost/my-shop/signup
+First download project after download, unzip the folder. create database my-shop. import sql file phpmyadmin. create a my-shop folder inside htdocs. after that unzip folder import into my-shop folder. create google api client id and secret key (https://console.cloud.google.com/). create google capcha secret key (https://www.google.com/recaptcha/admin/create). create new google account account. after create account must be enable two factor authentication and enable less secure app access. all the key and id enter into correct place. finally type the url in your browser http://localhost/my-shop/ or http://localhost/my-shop/login or http://localhost/my-shop/signup
 
 #admin page
 
