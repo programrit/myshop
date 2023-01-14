@@ -5,31 +5,29 @@
         <div class="row px-xl-5">
             <div class="col-lg-7 mb-5">
                 <div class="contact-form">
-                    <div id="success"></div>
-                    <form name="sentMessage" action="" method="POST" id="contactForm" novalidate="novalidate" class="needs-validation">
+                    <form action="" method="POST"  novalidate class="needs-validation">
                         <div class="control-group">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Your Name"
-                                required="required" data-validation-required-message="Please enter your name" />
+                            <input type="text" class="form-control" name="name"  placeholder="Your Name"
+                                required />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email"
-                                required="required" data-validation-required-message="Please enter your email" />
+                            <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                required  />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <input type="number" class="form-control" name="phone" id="subject" placeholder="Phone no"
-                                required="required" data-validation-required-message="Please enter a phone no" />
+                            <input type="text" class="form-control" name="phone" placeholder="Phone no"
+                                required pattern="[6-9]{1}[0-9]{9}" />
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="control-group">
-                            <textarea class="form-control" rows="6" name="message" id="message" placeholder="Message"
-                                required="required"
-                                data-validation-required-message="Please enter your message"></textarea>
+                            <textarea class="form-control" rows="6" name="message" placeholder="Message"
+                                required="required"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div>
-                            <button class="btn btn-primary py-2 px-4" name="submit" type="submit" id="sendMessageButton">Send
+                            <button class="btn btn-primary py-2 px-4" name="submit" type="submit">Send
                                 Message</button>
                         </div>
                     </form>

@@ -11,15 +11,18 @@ if($id1){?>
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label>Name</label>
-                        <input class="form-control" name="name" type="text" required placeholder="Enter your name"> 
+                        <input class="form-control" name="name" pattern="[a-zA-Z]{3,}" type="text" required placeholder="Enter your name"> 
+                        <div class="invalid-feedback">Enter valid name</div>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>Mobile No</label>
-                        <input required class="form-control" name="phone" type="number" required placeholder="Enter your mobile no">
+                        <input required class="form-control" pattern="[6-9]{1}[0-9]{9}" name="phone" type="number" required placeholder="Enter your mobile no">
+                        <div class="invalid-feedback">Enter valid phone no</div>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>Address Line 1</label>
                         <textarea class="form-control" name="address" required minlength="20" maxlength="100" placeholder="Enter full address detail"></textarea>
+                        <div class="invalid-feedback">Enter valid full address</div>
                     </div>
 
                 </div>
@@ -108,65 +111,22 @@ if($id1){?>
                         </div>    
                     </div>
                 </div>
-                <?php }?>
             </div>
             <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
                         <h4 class="font-weight-semi-bold m-0">Payment</h4>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button type="submit" name="place" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
-                        <button type="submit" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Cart to pay</button>
-                    </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content" style="background-color: #00BFFF;">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Cart Detail</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                                <div class="modal-body">
-                                    <div class="col-md-12 mb-3">
-                                        <label for="">Cart number</label>
-                                        <input type="number" name="card_no" pattern="[0-9]{9}[0-9]{4}" class="form-control" required>
-                                        <div class="invalid-feedback">Enter valid card no!</div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="">Expire Date</label>
-                                            <input type="month" name="" class="form-control" required>
-                                            <div class="invalid-feedback">Enter valid date!</div>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="">CVV</label>
-                                            <input type="password" name="cvv" pattern="[0-9]{3}" class="form-control" required>
-                                            <div class="invalid-feedback">Enter valid cvv!</div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                     $sql=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
-                                     $rows=mysqli_fetch_array($sql);
-                                     $user=$rows['id'];
-                                     $query="SELECT SUM(total) FROM cart WHERE user_id='$user' AND active='0'";
-                                     $result=$conn->query($query);
-                                     while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
-                                    <div class="col-md-6">
-                                        <h5><b>Amount: </b> $ <?php if ($row['SUM(total)']>=500) {
-                                            echo $row['SUM(total)'];
-                                        } else {
-                                            echo $row['SUM(total)']+40;
-                                        } ?></h5>
-                                    </div>
-                                    <?php }?>
-                                </div>
-                                <div class="modal-footer">
-                                  <!-- <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button> -->
-                                  <button type="submit" name="online" class="btn btn-success" >Pay</button>
-                                </div>            
-                          </div>
-                        </div>
+                        <?php
+                            if($row['SUM(total)']>40){ ?>
+                                <button type="submit" name="place" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
+                            <?php }else{ ?>
+                                <button type="submit" disabled name="place"  class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
+                            <?php }
+                        ?>
                     </div>
                 </div>   
+                <?php }?>
         </div>
     </div>
 </form>

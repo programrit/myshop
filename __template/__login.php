@@ -9,8 +9,8 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 require "vendor/autoload.php";
 
-$clientId="677996261588-6rgn5350qrebmqptf01486e9e8eeeuhl.apps.googleusercontent.com";
-$clientSecret="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";
+$clientId="YOUR_CLIENT_ID";
+$clientSecret="YOUR_SECRET_KEY";
 $clientUri="http://localhost/my-shop/login";
 
 $client=new Google_Client();
@@ -52,7 +52,7 @@ if (isset($_POST["submit"])) {
 	$email=htmlspecialchars($email);
 	$password=htmlspecialchars($password);
 	$captcha=$_POST["g-recaptcha-response"];
-	$secretkey="6Le-d1QjAAAAAASzHIfv9FVcbT7vk2le67vmj8dh";
+	$secretkey="YOUR_SECRET_KEY";
 	$url='https://www.google.com/recaptcha/api/siteverify?secret='.urldecode($secretkey).'&response='.urldecode($captcha).'';
 	$response=file_get_contents($url);
 	$responseKey= json_decode($response, TRUE);
@@ -111,10 +111,11 @@ if ($login==true && $user==true) {
 						<div class="d-flex justify-content-between align-items-center">
             				<div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6Le-d1QjAAAAAKqh1JPMzZ_reMwUkdB32bUmB45N" required></div>
           				</div>
-						<a href="email-verfication" class="text-body mt-2">Forgot password</a>
+						<a href="email-verfication" class="text-body mt-2 col-md-12 text-center">Forgot password</a>
 						<div class="text-center mt-4 col-md-12">
 							<button type="submit" class="btn btn-primary" name="submit">Login</button>
-							<button type="reset" class="btn btn-danger">Cancel</button>	
+							<button type="reset" class="btn btn-danger">Cancel</button>
+								<p class="text-dark text-center mt-3">or</p>
 								<div class="btn-group text-center mt-1">
 									<button class="btn border-primary"><img class="rounded bg-white" style="width: 20px; background-color: none;" src="/img/OIP.jpeg"></button><button class="btn btn-primary"><a style="text-decoration: none;" class="text-white" href="<?php echo $client->createAuthUrl(); ?>">Login with google</a></button>
 								</div>

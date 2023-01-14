@@ -12,74 +12,82 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
-    $id=explode(" ",$_GET['id']);
-    $size=explode(" ",$_GET['size']);
-    
-    $sql=mysqli_query($conn,"SELECT * FROM user WHERE username='$user1'");
-    $row=mysqli_fetch_array($sql);
-    foreach($size as $sizes){
-      $s= $sizes;
-    }
-    foreach($id as $ids){
-      $i= $ids;
-    }
-    $status="pending";
-    $query="SELECT  name,address,product_id,time,SUM(price) FROM checkout WHERE user_id='$row[id]' AND status='$status' AND (product_id IN ('$i')) OR (size IN ('$s'))";
-    $result=$conn->query($query);
-    if($result->num_rows>0){
-      while($rows=$result->fetch_assoc()){
-        $obj=new IndianCurrency($rows['SUM(price)']);
-        $total=$rows['SUM(price)']+40;
-        $obj1=new IndianCurrency($total);
-        if($rows['SUM(price)']>=500){
-          $info=[
-            "customer"=>ucfirst("$rows[name]"),
-            "address"=>"$rows[address]",
-            "user_no"=>"$rows[product_id]",
-            "invoice_date"=>"$rows[time]",
-            "delivery_fees"=>0,
-            "total_amt"=>$rows['SUM(price)'],
-            "words"=> $obj->get_words(),
-          ];
-        }else{
-          $info=[
-            "customer"=>ucfirst("$rows[name]"),
-            "address"=>"$rows[address]",
-            "user_no"=>"$rows[product_id]",
-            "invoice_date"=>"$rows[time]",
-            "delivery_fees"=>40,
-            "total_amt"=>$rows['SUM(price)']+40,
-            "words"=> $obj1->get_words(),
-          ];
-        }
-      }
+    $users=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
+    $fetch=mysqli_fetch_array($users);
+    $user_id=$fetch["id"];
+    $product_id=$conn->real_escape_string($_GET["product_id"]);
+    $size=$conn->real_escape_string($_GET["size"]);
+    $color=$conn->real_escape_string($_GET["color"]);
+    $product_id=htmlspecialchars($product_id);
+    $size=htmlspecialchars($size);
+    $color=htmlspecialchars($color);
+    $sizes=explode(",", $size);
+    $sizes=implode("','", $sizes);
+    $product_ids=explode(",", $product_id);
+    $product_ids=implode("','", $product_ids);
+    $colors=explode(",", $color);
+    $colors=implode("','", $colors);
+    if($sizes=="" || $sizes==null || empty($sizes)){
+      echo "<script>alert('Size is not match!')</script>";
+      header("refresh:1 url=order");
+    }else if($product_ids=="" || $product_ids ==null || empty($product_ids)){
+      echo "<script>alert('Product id is not match!')</script>";
+      header("refresh:1 url=order");
+    }else if($colors=="" || $colors ==null || empty($colors)){
+      echo "<script>alert('Color is not match!')</script>";
+      header("refresh:1 url=order");
     }else{
-      echo "<script>alert('Something went wrong')</script>";
+      $status="pending";
+    $query="SELECT name,address,product_id,user_id,time,SUM(price) FROM checkout WHERE user_id='$user_id' AND status='$status'  AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
+      $result=$conn->query($query);
+      if($result->num_rows>0){
+        while($rows=$result->fetch_assoc()){
+          $obj=new IndianCurrency($rows['SUM(price)']);
+          $total=$rows['SUM(price)']+40;
+          $obj1=new IndianCurrency($total);
+          if($rows['SUM(price)']>=500){
+            $info=[
+              "customer"=>ucfirst("$rows[name]"),
+              "address"=>"$rows[address]",
+              "user_no"=>"$rows[user_id]",
+              "invoice_date"=>"$rows[time]",
+              "delivery_fees"=>0,
+              "total_amt"=>$rows['SUM(price)'],
+              "words"=> $obj->get_words(),
+            ];
+          }else{
+            $info=[
+              "customer"=>ucfirst("$rows[name]"),
+              "address"=>"$rows[address]",
+              "user_no"=>"$rows[product_id]",
+              "invoice_date"=>"$rows[time]",
+              "delivery_fees"=>40,
+              "total_amt"=>$rows['SUM(price)']+40,
+              "words"=> $obj1->get_words(),
+            ];
+          }
+        }
+    }else{
+      echo "<script>alert('Something went wrong. this product is not will be there')</script>";
     }
-    
-    
     //customer and invoice details  
   //invoice Products
-  foreach($size as $sizes){
-    $s1= $sizes;
-  }
-  foreach($id as $ids){
-    $i1= $ids;
-  }
-  $products_info=[];
-  $status="pending";
-  $query1="SELECT * FROM checkout WHERE user_id='$row[id]' AND product_id IN ('$i1') AND status='$status' OR size IN ('$s')";
+    $status="pending";
+    $query1="SELECT * FROM checkout WHERE user_id='$user_id' AND status='$status' AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
+    echo $query1;  
     $result1=$conn->query($query1);
-    if($result1->num_rows>0){
-        while($rows=$result1->fetch_assoc()){
-            $products_info[]=[
-                "name"=>$rows['product_name'],
-                "price"=>$rows['price']/$rows['quantity'],
-                "qty"=>$rows['quantity'],
-                "total"=>$rows['price'],
-            ];
-        }
-    }
+      if($result1->num_rows>0){
+          while($row=$result1->fetch_assoc()){
+              $products_info[]=[
+                  "name"=>$row['product_name'],
+                  "price"=>$row['price']/$row['quantity'],
+                  "qty"=>$row['quantity'],
+                  "total"=>$row['price'],
+              ];
+          }
+      }else{
+        header("refresh:1; url=order");
+      }
   
   class PDF extends FPDF
   {
@@ -188,6 +196,11 @@ if (session::get('is_login')) {
   $pdf->body($info,$products_info);
   ob_end_clean();
   $pdf->Output();
+    }
+    
 }else{
     header("Location: login");
 }?>
+
+<?php
+// WHERE user_id='$rows[user_id]' AND status='$status' AND size LIKE ('%$sizes%' AND product_id LIKE '%$product_ids%' AND color LIKE '%$color%')

@@ -43,11 +43,11 @@ if(isset($_POST["resend_otp"])){
     $mail->isSMTP();
     $mail->Host='smtp.gmail.com';
     $mail->SMTPAuth=true;
-    $mail->Username='photograms19@gmail.com';
-    $mail->Password='vwwvwoccepfiylmp';
+    $mail->Username='YOUR_EMAIL';
+    $mail->Password='YOUR_PASSWORD';
     $mail->SMTPSecure='ssl';
     $mail->Port=465;
-    $mail->setFrom('photograms19@gmail.com');
+    $mail->setFrom('YOUR_EMAIL');
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject=$subject;

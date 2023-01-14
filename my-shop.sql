@@ -246,6 +246,20 @@ CREATE TABLE `review` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subcribe`
+--
+
+CREATE TABLE `subcribe` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -409,6 +423,12 @@ ALTER TABLE `review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- Indexes for table `subcribe`
+--
+ALTER TABLE `subcribe`
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -453,6 +473,13 @@ ALTER TABLE `profile`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+COMMIT;
+
+--
+-- Constraints for table `subcribe`
+--
+ALTER TABLE `subcribe`
+  ADD CONSTRAINT `subcribe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

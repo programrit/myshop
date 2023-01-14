@@ -28,7 +28,7 @@ if (session::get('is_login')) {
         $info=true;
     }
     if($contact==true && $info==true){
-        echo "<script>alert('Message send successfully. contact us soon!')<script>";
+        echo "<script>alert('Message send successfully.contact us soon')</script>";
         header("refresh:1; url=contact");
     }
     
@@ -102,7 +102,7 @@ if (session::get('is_login')) {
 
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <!-- <script src="mail/contact.js"></script> -->
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

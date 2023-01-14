@@ -15,7 +15,7 @@ if(isset($_POST["submit"])){
     $email=htmlspecialchars($email);
     $password=htmlspecialchars($password);
     $captcha=$_POST["g-recaptcha-response"];
-	  $secretkey="6Le-d1QjAAAAAASzHIfv9FVcbT7vk2le67vmj8dh";
+	  $secretkey="YOUR_SECRET_KEY";
 	  $url='https://www.google.com/recaptcha/api/siteverify?secret='.urldecode($secretkey).'&response='.urldecode($captcha).'';
 	  $response=file_get_contents($url);
 	  $responseKey= json_decode($response, TRUE);
