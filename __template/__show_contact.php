@@ -39,14 +39,14 @@
                 <div class="d-flex flex-column mb-3">
                     <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
                     <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Srivilliputhur, virudhunagar</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ramraj291101@gmail.com</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+91 9360392849</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ram@gmail.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+91 9876543210</p>
                 </div>
                 <div class="d-flex flex-column">
                 <h5 class="font-weight-semi-bold mb-3">Store 1</h5>
                     <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Srivilliputhur, virudhunagar</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ramraj291101@gmail.com</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+91 9360392849</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ram@gmail.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3"></i>+91 9876543210</p>
                 </div>
             </div>
         </div>
