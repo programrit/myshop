@@ -5,14 +5,17 @@
 #admin page
 
 #url = http://localhost/my-shop/admin/login
+
 #username= "admin"
+
 #password= "Admin123@45"
 
 
 #output
 
-![![Screenshot (31)](https://user-images.githubusercontent.com/95410082/212461218-6d727808-6a95-4a82-a8ad-6434776b18ff.png)
-![Screenshot (32)](https://user-images.githubusercontent.com/95410082/212461221-3de66e32-5470-4786-b42d-5743b6361d7f.png)
-![Screenshot (33)](https://user-images.githubusercontent.com/95410082/212461222-c9180255-0cd5-4aaa-a4d6-956c9495e648.png)
-![download](https://user-images.githubusercontent.com/95410082/212461224-460da5b5-9a43-425e-a758-495e0696c648.png)
-Uploading Screenshot (30).png…]()
+
+![Screenshot (31)](https://user-images.githubusercontent.com/95410082/212461300-355903f1-c89b-4d90-b131-4ef0a973221d.png)
+![Screenshot (32)](https://user-images.githubusercontent.com/95410082/212461301-8e9a324d-127a-4402-8ae0-ff782bfd0e49.png)
+![Screenshot (33)](https://user-images.githubusercontent.com/95410082/212461303-445d8146-a913-4395-b10d-f4f1134e6270.png)
+![download](https://user-images.githubusercontent.com/95410082/212461305-d26b0aba-8548-4f47-911a-7831ec7a9a93.png)
+![Screenshot (30)](https://user-images.githubusercontent.com/95410082/212461306-3956e374-9d7f-4915-bdf5-0224e2228e6c.png)
