@@ -244,6 +244,9 @@ if (session::get('is_login')) {
                });
             },5000)
         })();
+         function checkQuantity(){ 
+            return confirm("Please check quantity. if you want change. please change after add to cart. because if you add to cat this product. you can't change the quantity!" );
+        }
     </script>
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

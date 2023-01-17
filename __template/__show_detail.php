@@ -123,9 +123,9 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
 
                     <div class="input-group quantity mr-3" id="quantity" style="width: 130px;">
-                        <input type="number"  class="form-control bg-secondary text-center" min="1" max="1"  value="1">
+                        <input type="number" name="quantity" class="form-control bg-secondary text-center" min="1" max="1"  value="1">
                     </div>
-                    <button type="submit" name="cart" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    <button type="submit" name="cart" onclick="return checkQuantity()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     <button type="submit" name="order"  class="ml-2 btn btn-primary px-3"><i class="fa fa-credit-card mr-1"></i> Place order</button>
                 </div>
             </div>
