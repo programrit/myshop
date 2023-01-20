@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2023 at 04:39 AM
+-- Generation Time: Jan 20, 2023 at 07:01 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -94,6 +94,7 @@ INSERT INTO `category` (`id`, `category`) VALUES
 
 CREATE TABLE `checkout` (
   `id` int(11) NOT NULL,
+  `order_id` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
   `name` text NOT NULL,
   `phone` text NOT NULL,
@@ -206,9 +207,9 @@ CREATE TABLE `mens_size` (
 --
 
 INSERT INTO `mens_size` (`id`, `product_id`, `category`, `product_type`, `size`, `quantity`, `mrp`, `price`, `active`) VALUES
-(1, 1, 'men', 'White t-shirt', 'X', 9, 200, 180, 1),
+(1, 1, 'men', 'White t-shirt', 'X', 100, 200, 180, 1),
 (2, 1, 'men', 'White t-shirt', 'XL', 5, 250, 200, 1),
-(8, 3, 'women', 'T-shirt', 'XL', 10, 260, 230, 1),
+(8, 3, 'women', 'T-shirt', 'XL', 5, 260, 230, 1),
 (10, 3, 'women', 'T-shirt', 'M', 9, 180, 150, 1);
 
 -- --------------------------------------------------------
@@ -256,7 +257,6 @@ CREATE TABLE `subcribe` (
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
 -- --------------------------------------------------------
 
 --
@@ -278,6 +278,13 @@ CREATE TABLE `user` (
   `otp_verify` int(11) NOT NULL DEFAULT 0 COMMENT '0=not_send,1=send,2=expired,3=use',
   `otp_verify_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `cofirm_password`, `token`, `active_token`, `active_time`, `active`, `otp`, `otp_verify`, `otp_verify_time`) VALUES
+(1, 'ram123', 'ramraj291101@gmail.com', '9876543210', '$2y$08$JxSTfgc31Ok.ajL5mtK4k.Xt9KWiBP3s3CcwjnxFdmPrJoQbFlJcC', '$2y$08$wmD8AHftDcepVN4RkvCgO.S8oGb5GEckNHGTqTt7enyE4xjx2pF6.', 'ac7e80647827ba1423810bb7ee2a7724', 1, '2023-01-19 12:31:59', 1, NULL, 0, NULL);
 
 --
 -- Indexes for dumped tables
@@ -307,7 +314,8 @@ ALTER TABLE `category`
 -- Indexes for table `checkout`
 --
 ALTER TABLE `checkout`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `collections`
@@ -351,6 +359,12 @@ ALTER TABLE `review`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `subcribe`
+--
+ALTER TABLE `subcribe`
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -372,7 +386,7 @@ ALTER TABLE `admin_user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -423,16 +437,10 @@ ALTER TABLE `review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Indexes for table `subcribe`
---
-ALTER TABLE `subcribe`
-  ADD KEY `user_id` (`user_id`);
-
---
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -443,6 +451,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Constraints for table `checkout`
+--
+ALTER TABLE `checkout`
+  ADD CONSTRAINT `checkout_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `collections`
@@ -473,7 +487,6 @@ ALTER TABLE `profile`
 --
 ALTER TABLE `review`
   ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-COMMIT;
 
 --
 -- Constraints for table `subcribe`

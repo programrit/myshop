@@ -23,6 +23,39 @@ if (session::get('is_login')) {
         echo "<script>alert('Product remove to cart successfully!')</script>";
         header("refresh:1; url=cart");
     }
+    if(isset($_POST["quantity"])){
+        $quantity=$conn->real_escape_string($_POST["quantity"]);
+        $quantity=htmlspecialchars($quantity);
+        $id=$conn->real_escape_string($_POST["id"]);
+        $id=htmlspecialchars($id);
+        $name=$conn->real_escape_string($_POST["name"]);
+        $name=htmlspecialchars($name);
+        $size=$conn->real_escape_string($_POST["size"]);
+        $size=htmlspecialchars($size);
+        $price=$conn->real_escape_string($_POST["price"]);
+        $price=htmlspecialchars($price);
+        $query=mysqli_query($conn,"SELECT * FROM mens_size WHERE product_id='$id' AND size='$size'");
+        $row=mysqli_fetch_array($query);
+        $qty=$row["quantity"];
+        if($quantity>$qty){
+            echo"<script>alert('$name quantity limit is only for less than $qty!')</script>";
+            header("refresh:1; url=cart");
+        }else if($quantity>10){
+            echo"<script>alert('quantity limit less than 10 only!')</script>";
+            header("refresh:1; url=cart");
+        }else{
+            $total=$quantity*$price;
+            $update=mysqli_query($conn,"UPDATE cart SET quantity='$quantity',total='$total' WHERE product_id='$id' AND size='$size'");
+            if($update===true){
+                header("refresh:1; url=cart");
+            }else{
+                echo"<script>alert('somethig went wrong. please try again later!')</script>";
+                header("refresh:1; url=cart");
+            }
+        }
+
+    }
+
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,6 +135,18 @@ if (session::get('is_login')) {
             return confirm("Are you sure you want to remove this product? ");
         }        
     </script>
+    <script>
+    function submitValue(){
+        var price=document.getElementsByClassName("price");
+        var quantity=document.getElementsByClassName("quantity");
+        var total=document.getElementsByClassName("total");
+        for(i=0;i<price.length;i++){
+            // total[i].innerText="$"+(price[i].value)*(quantity[i].value);
+        }
+    }
+    submitValue();
+
+</script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

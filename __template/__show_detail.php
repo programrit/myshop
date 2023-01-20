@@ -89,7 +89,7 @@
                     } ?>)</h5>
                 </div>
                 <input type="hidden" name="price1" id="price1">
-                <h3 class="font-weight-semi-bold mb-4" id="price">$ <?php if(isset($_POST['price'])){ echo $_POST['price'];}else{ echo $row['price'];} ?></h3>
+                <h3 class="font-weight-semi-bold mb-4" id="price">₹ <?php if(isset($_POST['price'])){ echo $_POST['price'];}else{ echo $row['price'];} ?></h3>
                 <p class="mb-4" id="words">Buy what you don’t have yet, or what you really want, which can be mixed with what you already own. Buy only because something excites you, not just for the simple act of shopping.</p>
                 <div class="d-flex mb-3">
                     <p class="text-dark font-weight-medium mb-0 mr-3">Color:</p>
@@ -123,9 +123,9 @@
                 <div class="d-flex align-items-center mb-4 pt-2">
 
                     <div class="input-group quantity mr-3" id="quantity" style="width: 130px;">
-                        <input type="number" name="quantity" class="form-control bg-secondary text-center" min="1" max="1"  value="1">
+                        <input type="number" name="quantity" class="form-control text-center" required min="1" max="1"  value="1">
                     </div>
-                    <button type="submit" name="cart" onclick="return checkQuantity()" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                    <button type="submit" name="cart"  class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
                     <button type="submit" name="order"  class="ml-2 btn btn-primary px-3"><i class="fa fa-credit-card mr-1"></i> Place order</button>
                 </div>
             </div>

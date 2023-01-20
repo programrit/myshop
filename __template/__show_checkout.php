@@ -41,7 +41,7 @@ if($id){?>
                             <img src="/my-shop/admin/men_img/<?php echo session::get("img") ?>" class="img-fluid" height="30" width="30">
                         </div>
                         <div class="d-flex">
-                            <p>Price: $ <?php echo session::get("price"); ?></p><br>
+                            <p>Price: ₹ <?php echo session::get("price"); ?></p><br>
                             <p class="ml-3">Size: <?php echo session::get("size"); ?></p>
                             <p class="ml-3">Quantity: <?php echo session::get("quantity"); ?></p>
                             <p class="ml-3">Color: <?php echo session::get("color"); ?></p>
@@ -53,18 +53,18 @@ if($id){?>
                         <hr class="mt-0">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Subtotal</h6>
-                            <h6 class="font-weight-medium">$ <?php echo session::get("total");?></h6>
+                            <h6 class="font-weight-medium">₹ <?php echo session::get("total");?></h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Delivery Fees</h6>
-                            <h6 class="font-weight-medium">$ <?php if(session::get('total')>=500){  echo "<p class='text-danger'>If price above 500.Free delivery</p>";}else{ echo 40;}  ?></h6>
+                            <h6 class="font-weight-medium">₹ <?php if(session::get('total')>=500){  echo "<p class='text-danger'>If price above 500.Free delivery</p>";}else{ echo 40;}  ?></h6>
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
                             <input type="hidden" id="amount" value="<?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}?>">
-                            <h5 class="font-weight-bold">$ <?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}  ?></h5>
+                            <h5 class="font-weight-bold">₹ <?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}  ?></h5>
                             <input type="hidden" id="product_id" value="<?php echo $id1;?>">
                         </div>
                     </div>

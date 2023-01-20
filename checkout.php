@@ -38,7 +38,8 @@ if (session::get('is_login')) {
 
     }
     if($check==true && $out==true){
-
+        $product_id=base64_encode($product_id);
+        $size=base64_encode($size);
         $msg="Order placed successfully. If you want recepit <a href='printout?id=$product_id&size=$size' target='_blank'> click</a>";
         // header("refresh:10; url=order");
         

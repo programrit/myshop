@@ -13,7 +13,7 @@ if($_GET['search']==null){
         <div class="row px-xl-5  pb-3">
             <div class="d-flex justify-content-between col-md-6 pb-1">
             <?php  
-                $query="SELECT * FROM mens WHERE product_name LIKE '%$search%' OR product_type LIKE '%$search%' OR category LIKE '%$search%'";
+                $query="SELECT * FROM mens WHERE product_name LIKE '%$search%' OR product_type LIKE '%$search%' OR category LIKE '%$search%' OR price LIKE '%$search%' OR mrp LIKE '%$search%'";
                 $result=$conn->query($query);
                 while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
                 <div class="card product-item border-0 mb-4">
@@ -32,7 +32,7 @@ if($_GET['search']==null){
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                     <h6 class="text-truncate mb-3"><?php echo $row['product_name'] ?></h6>
                         <div class="d-flex justify-content-center">
-                        <h6>$ <?php  echo $row['price'];?></h6><h6 class="text-muted ml-2"><del>$ <?php echo $row['mrp']; ?></del></h6>
+                        <h6>₹ <?php  echo $row['price'];?></h6><h6 class="text-muted ml-2"><del>₹ <?php echo $row['mrp']; ?></del></h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-center bg-light border">

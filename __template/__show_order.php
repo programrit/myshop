@@ -4,6 +4,7 @@
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
+                            <th>Order Id</th>
                             <th>Product Name</th>
                             <th>Product Image</th>
                             <th>Color</th>
@@ -25,12 +26,13 @@
                             $result=$conn->query($query);
                             while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
                         <tr>
+                            <td class="align-middle"><?php echo $row['order_id']; ?></td>
                             <td class="align-middle">Colorful <?php echo $row['product_name']; ?></td>
                             <td class="align-middle"><img src="/my-shop/admin/men_img/<?php echo $row['product_img']; ?>" alt="" style="width: 50px;"></td>
                             <td class="align-middle"><?php echo $row['color']; ?></td>
                             <td class="align-middle"><?php echo $row['size']; ?></td>
                             <td class="align-middle"><?php echo $row['quantity']; ?></td>
-                            <td class="align-middle">$<?php echo $row['price']; ?></td>
+                            <td class="align-middle">₹<?php echo $row['price']; ?></td>
                             <td class=""><?php echo $row['time']; ?></td>
                             <td class=""><?php echo $row['delivery']; ?></td>
                             <td class="align-middle"><?php 

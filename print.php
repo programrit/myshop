@@ -21,6 +21,9 @@ if (session::get('is_login')) {
     $product_id=htmlspecialchars($product_id);
     $size=htmlspecialchars($size);
     $color=htmlspecialchars($color);
+    $product_id=base64_decode($product_id);
+    $size=base64_decode($size);
+    $color=base64_decode($color);
     $sizes=explode(",", $size);
     $sizes=implode("','", $sizes);
     $product_ids=explode(",", $product_id);
@@ -38,7 +41,7 @@ if (session::get('is_login')) {
       header("refresh:1 url=order");
     }else{
       $status="pending";
-    $query="SELECT name,address,product_id,user_id,time,SUM(price) FROM checkout WHERE user_id='$user_id' AND status='$status'  AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
+    $query="SELECT name,address,product_id,user_id,time,SUM(price),order_id FROM checkout WHERE user_id='$user_id' AND status='$status'  AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
       $result=$conn->query($query);
       if($result->num_rows>0){
         while($rows=$result->fetch_assoc()){
@@ -49,7 +52,7 @@ if (session::get('is_login')) {
             $info=[
               "customer"=>ucfirst("$rows[name]"),
               "address"=>"$rows[address]",
-              "user_no"=>"$rows[user_id]",
+              "order_no"=>"$rows[order_id]",
               "invoice_date"=>"$rows[time]",
               "delivery_fees"=>0,
               "total_amt"=>$rows['SUM(price)'],
@@ -59,7 +62,7 @@ if (session::get('is_login')) {
             $info=[
               "customer"=>ucfirst("$rows[name]"),
               "address"=>"$rows[address]",
-              "user_no"=>"$rows[product_id]",
+              "order_no"=>"$rows[order_id]",
               "invoice_date"=>"$rows[time]",
               "delivery_fees"=>40,
               "total_amt"=>$rows['SUM(price)']+40,
@@ -74,7 +77,6 @@ if (session::get('is_login')) {
   //invoice Products
     $status="pending";
     $query1="SELECT * FROM checkout WHERE user_id='$user_id' AND status='$status' AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
-    echo $query1;  
     $result1=$conn->query($query1);
       if($result1->num_rows>0){
           while($row=$result1->fetch_assoc()){
@@ -125,7 +127,7 @@ if (session::get('is_login')) {
       //Display Invoice no
       $this->SetY(55);
       $this->SetX(-60);
-      $this->Cell(50,7,"User No : ".$info["user_no"]);
+      $this->Cell(50,7,"Order No : ".$info["order_no"]);
       
       //Display Invoice date
       $this->SetY(63);

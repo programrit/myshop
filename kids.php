@@ -91,7 +91,7 @@ if (session::get('is_login')) {
         function sort(){
             var sorted=document.getElementById('filter').value;
             if(sorted){
-                window.location.href="mens?sort="+sorted;
+                window.location.href="kids?sort="+sorted;
             }
         }
     </script>

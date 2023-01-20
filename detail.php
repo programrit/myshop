@@ -37,7 +37,7 @@ if (session::get('is_login')) {
             $total=$quantity*$price;
             if($quantity >10){
                 echo "<script>alert('Quantity must be less 10.')</script>";
-            } else{
+            }else{
                 $cart=collection::cart($user,$id1,$name,$img,$size,$price,$quantity,$color,$total);
                 $add=true;
             }  
@@ -81,7 +81,7 @@ if (session::get('is_login')) {
                 session::set("total",$total);
                 if($_POST["quantity"]>10){
                     echo "<script>alert('Quantity must be less 10.')</script>";
-                } else{
+                }else{
                    header("Location: checkout?id=".base64_encode($id1));
                 }
             }
@@ -244,9 +244,6 @@ if (session::get('is_login')) {
                });
             },5000)
         })();
-         function checkQuantity(){ 
-            return confirm("Please check quantity. if you want change. please change after add to cart. because if you add to cat this product. you can't change the quantity!" );
-        }
     </script>
     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>

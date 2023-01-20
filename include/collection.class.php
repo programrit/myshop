@@ -50,11 +50,21 @@ class collection{
             // header("refresh:1; url=order");
             $order=false;
         }else{
-            $insert="INSERT INTO checkout (user_id,name,phone,address,delivery,product_id,product_name,product_img,size,quantity,color,price,time) VALUES('$id','$name','$phone','$address','$delivery','$product_id','$product_name','$img','$size','$quantity','$color','$price','$current_date')";
+            $order_id="ORDER_".substr($phone,5);
+            $insert="INSERT INTO checkout (user_id,order_id,name,phone,address,delivery,product_id,product_name,product_img,size,quantity,color,price,time) VALUES('$id','$order_id','$name','$phone','$address','$delivery','$product_id','$product_name','$img','$size','$quantity','$color','$price','$current_date')";
             if($conn->query($insert)===TRUE){
                 $update="DELETE FROM cart WHERE user_id='$id' AND product_id='$product_id' AND size='$size'";
                 if($conn->query($update)===TRUE){
-                    $order=true;
+                    $sql=mysqli_query($conn,"SELECT quantity FROM mens_size WHERE product_id='$product_id' AND size='$size'");
+                    $get=mysqli_fetch_array($sql);
+                    $qty=$get["quantity"]-$quantity;
+                    $change=mysqli_query($conn,"UPDATE mens_size SET quantity='$qty' WHERE product_id='$product_id' AND size='$size'");
+                    if($change===true){
+                        $order=true;
+                    }else{
+                        $order=false;
+                        $order=$conn->error;
+                    }
                 }else{
                     $order=false;
                     $order=$conn->error;
@@ -70,7 +80,22 @@ class collection{
         $conn = DB::db();
         $remove="UPDATE checkout SET status='cancel' WHERE id='$id'";
         if($conn->query($remove)===TRUE){
-            $del=true;
+            $get=mysqli_query($conn,"SELECT * FROM checkout WHERE id='$id'");
+            $fetch=mysqli_fetch_array($get);
+            $product_id=$fetch["product_id"];
+            $size=$fetch["size"];
+            $quantity=$fetch["quantity"];
+            $sql=mysqli_query($conn,"SELECT quantity FROM mens_size WHERE product_id='$product_id' AND size='$size'");
+            $result=mysqli_fetch_array($sql);
+            $quantity1=$result["quantity"];
+            $qty=$quantity+$quantity1;
+            $update=mysqli_query($conn,"UPDATE mens_size SET quantity='$qty' WHERE product_id='$product_id' AND size='$size'");
+            if($update===true){
+                $del=true;
+            }else{
+                $del=false;
+                $del=$conn->error;
+            }
         }else{
             $del=false;
             $del=$conn->error;
@@ -90,11 +115,21 @@ class collection{
             header("refresh:1; url=order");
             $check=false;
         }else{
-            $insert="INSERT INTO checkout (user_id,name,phone,address,delivery,product_id,product_name,product_img,size,quantity,color,price,time) VALUES('$user_id','$name','$phone','$address','$delivery','$product_id','$product_name','$img','$size','$quantity','$color','$total','$current_date')";
+            $order_id="ORDER_".substr($phone,5);
+            $insert="INSERT INTO checkout (user_id,order_id,name,phone,address,delivery,product_id,product_name,product_img,size,quantity,color,price,time) VALUES('$user_id','$order_id','$name','$phone','$address','$delivery','$product_id','$product_name','$img','$size','$quantity','$color','$total','$current_date')";
             if($conn->query($insert)===TRUE){
                 $update="DELETE FROM cart WHERE user_id='$user_id' AND product_id='$product_id' AND size='$size'";
                 if($conn->query($update)===TRUE){
-                    $check=true;
+                    $sql=mysqli_query($conn,"SELECT quantity FROM mens_size WHERE product_id='$product_id' AND size='$size'");
+                    $get=mysqli_fetch_array($sql);
+                    $qty=$get["quantity"]-$quantity;
+                    $change=mysqli_query($conn,"UPDATE mens_size SET quantity='$qty' WHERE product_id='$product_id' AND size='$size'");
+                    if($change===true){
+                        $check=true;
+                    }else{
+                        $check=false;
+                        $check=$conn->error;
+                    }
                 }else{
                     $check=false;
                     $check=$conn->error;

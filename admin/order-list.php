@@ -73,6 +73,7 @@ if(admin_session::get('is_login')){
                                             <th>Name</th>
                                             <th>Phone</th>
                                             <th>Address</th>
+                                            <th>Order Id</th>
                                             <th>User Id</th>
                                             <th>Product Id</th>
                                             <th>Product Name</th>
@@ -93,6 +94,7 @@ if(admin_session::get('is_login')){
                                             <th>Name</th>
                                             <th>Phone</th>
                                             <th>Address</th>
+                                            <th>Order Id</th>
                                             <th>User Id</th>
                                             <th>Product Id</th>
                                             <th>Product Name</th>
@@ -117,6 +119,7 @@ if(admin_session::get('is_login')){
                                             <td><?php echo $row['name']; ?></td>
                                             <td><?php echo $row['phone']; ?></td>
                                             <td><?php echo $row['address']; ?></td>
+                                            <td><?php echo $row['order_id'];?></td>
                                             <td><?php echo $row['user_id']; ?></td>
                                             <td><?php echo $row['product_id']; ?></td>
                                             <td><?php echo $row['product_name']; ?></td>

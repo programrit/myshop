@@ -46,7 +46,7 @@ if (session::get('is_login')) {
                 $place=true;
             }else{
                 echo"<script>alert('This product already placed in order please check your order list!')</script>";
-                header("refresh:1; url=order");
+                 header("refresh:1; url=order");
             }  
         }   
     }
@@ -54,6 +54,9 @@ if (session::get('is_login')) {
         $product_ids=implode(",", $product_id1);
         $colors=implode(",", $color1);
         $sizes=implode(",", $size1);
+        $product_ids=base64_encode($product_ids);
+        $colors=base64_encode($colors);
+        $sizes=base64_encode($sizes);
         $msg="Order placed successfully.If you want recepit <a href='print?product_id=$product_ids&color=$colors&size=$sizes' target='_blank'>click</a>";
         // header("refresh:10; url=order");
     }

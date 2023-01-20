@@ -58,7 +58,7 @@ if($id1){?>
                                     <input type="hidden" name="color[]" value="<?php echo $row['color']; ?>">
                                     <p class="ml-5">Product No: <?php echo $count++; ?></p>
                                     <p class="ml-5">Name: <?php echo $row['product_name']; ?></p>
-                                    <p class="ml-5">Price: $ <?php echo $row['price']; ?></p>
+                                    <p class="ml-5">Price: ₹ <?php echo $row['price']; ?></p>
                                     <p class="ml-5">Size: <?php echo $row['size']; ?></p>
                                     <p class="ml-5">Color: <?php echo $row['color']; ?></p>
                                     <p class="ml-5">Quantity: <?php echo $row['quantity']; ?></p>
@@ -74,7 +74,7 @@ if($id1){?>
                                 </div>
                                 <div class="col-lg-6">
                                 <input type="hidden" name="price[]" value="<?php echo $row['total']; ?>">
-                                <h6 class="font-weight-medium ml-5">$ <?php echo $row['total']; ?></h6>
+                                <h6 class="font-weight-medium ml-5">₹ <?php echo $row['total']; ?></h6>
                                 </div>
                             </div>    
                         </div>
@@ -86,7 +86,15 @@ if($id1){?>
                                     <h6 class="font-weight-medium ml-5">Delivery Fees</h6>
                                 </div>
                                 <div class="col-lg-6">
-                                <h6 class="font-weight-medium ml-5">$ 40</h6>
+                                <?php
+                                    $sql=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
+                                    $rows=mysqli_fetch_array($sql);
+                                    $user=$rows['id'];
+                                    $query="SELECT SUM(total) FROM cart WHERE user_id='$user' AND active='0'";
+                                    $result=$conn->query($query);
+                                    while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
+                                        <h6 class="font-weight-medium ml-5"><?php if($row['SUM(total)']>=500){ echo "No delivery fees";}else{ echo "₹ 40";} ?></h6>
+                                        <?php }?>
                                 </div>
                             </div>    
                         </div>
@@ -106,7 +114,7 @@ if($id1){?>
                                 <h6 class="font-weight-medium ml-5">Total</h6>
                             </div>
                             <div class="col-lg-6">
-                            <h6 class="font-weight-medium ml-5">$ <?php if($row['SUM(total)']>=500){ echo $row['SUM(total)'];}else{ echo $row['SUM(total)']+40;} ?></h6>
+                            <h6 class="font-weight-medium ml-5">₹ <?php if($row['SUM(total)']>=500){ echo $row['SUM(total)'];}else{ echo $row['SUM(total)']+40;} ?></h6>
                             </div>
                         </div>    
                     </div>

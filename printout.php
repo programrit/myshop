@@ -19,7 +19,10 @@ if (session::get('is_login')) {
     $size=$conn->real_escape_string($_GET['size']);
     $product_id=htmlspecialchars($product_id);
     $size=htmlspecialchars($size);
-    $query="SELECT name,address,user_id,time,price FROM checkout WHERE  user_id='$row[id]'AND product_id='$product_id' AND size='$size' AND status='$status' AND checkout='0'";
+    $product_id=base64_decode($product_id);
+    $size=base64_decode($size);
+    $status="pending";
+    $query="SELECT name,address,user_id,time,price FROM checkout WHERE user_id='$row[id]'AND product_id='$product_id' AND size='$size' AND status='$status'";
     $result=$conn->query($query);
     if($result->num_rows>0){
         $rows=$result->fetch_assoc();
@@ -54,7 +57,7 @@ if (session::get('is_login')) {
     //customer and invoice details  
   //invoice Products
   $products_info=[];
-  $query="SELECT * FROM checkout WHERE user_id='$row[id]' AND product_id='$_GET[id]'AND size='$_GET[size]' AND checkout='0'";
+  $query="SELECT * FROM checkout WHERE user_id='$row[id]' AND product_id='$product_id'AND size='$size'";
     $result=$conn->query($query);
     if($result->num_rows>0){
         while($rows=$result->fetch_assoc()){
@@ -66,7 +69,7 @@ if (session::get('is_login')) {
             ];
         }
     }else{
-      header("refresh:1; url=order");
+      // header("refresh:1; url=order");
     }
   
   class PDF extends FPDF

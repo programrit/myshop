@@ -12,10 +12,10 @@ if (session::get('is_login')) {
         $query=mysqli_query($conn,"SELECT * FROM mens_size WHERE size='$_POST[size]' AND product_id='$_POST[product_id]'");
         if($query->num_rows>0){
             while($row=$query->fetch_array(MYSQLI_ASSOC)){
-                echo "<input type='number' name='quantity' class='form-control bg-secondary text-center' id='quantity' min='1' value='1' max='$row[quantity]'>";
+                echo "<input type='number' name='quantity' class='form-control text-center' id='quantity' min='1' value='1' max='$row[quantity]'>";
             }
         }else{
-            echo "<input type='number' name='quantity' class='form-control bg-secondary text-center' id='quantity' min='1' value='1' max='1'>";
+            echo "<input type='number' name='quantity' class='form-control  text-center' id='quantity' min='1' value='1' max='1'>";
         }
     }
 
