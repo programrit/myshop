@@ -68,22 +68,24 @@ if($signup){
 						<?php }?>
 					</div>
       <h3 class="py-3 text-center">Admin Login</h3>
-          <div class="form-outline">
+          <div class="form-outline col-md-8 mx-auto">
             <input type="text" name="email" id="form3Example3" class="form-control"
               placeholder="Enter your username" required />
               <div class="invalid-feedback">Enter valid username!</div>
             <label class="form-label" for="form3Example3"></label>
           </div>
-          <div class="form-outline">
+          <div class="form-outline col-md-8 mx-auto">
             <input type="password" name="password" id="form3Example4" class="form-control"
               placeholder="Enter your password" required/>
               <div class="invalid-feedback">Enter valid password!</div>
             <label class="form-label" for="form3Example4"></label>
           </div>
-          <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-center align-items-center ml-3">
             <div class="g-recaptcha" name="g-recaptcha-response" data-sitekey="6Le-d1QjAAAAAKqh1JPMzZ_reMwUkdB32bUmB45N" required></div>
           </div>
-          <a href="forget-password" class="text-body mt-1">Forgot password</a>
+          <div class="col-md-12 text-center">
+          <a href="forget-password" class="text-body mt-1 ml-3">Forgot password</a>
+          </div>
 
           <div class="mt-3 col-md-12 text-center mb-3">
             <button type="submit" class="btn btn-primary" name="submit">Login</button>

@@ -87,6 +87,7 @@ if(admin_session::get('is_login')){
                                             <th>Product Image</th>
                                             <th>Size</th>
                                             <th>Quantity</th>
+											<th>Product Price</th>
                                             <th>Price</th>
                                             <th>Color</th>
 											<th>Status</th>
@@ -102,6 +103,7 @@ if(admin_session::get('is_login')){
                                             <th>Product Image</th>
                                             <th>Size</th>
                                             <th>Quantity</th>
+											<th>Product Price</th>
                                             <th>Price</th>
                                             <th>Color</th>
 											<th>Status</th>
@@ -124,6 +126,7 @@ if(admin_session::get('is_login')){
                                             <td><img src="/my-shop/admin/men_img/<?php echo $row['product_img']; ?>" alt="" style="width: 50px;"></td>
                                             <td><?php echo $row['size']; ?></td>
                                             <td><?php echo $row['quantity']; ?></td>
+											<td><?php echo $row["price"]/$row['quantity']; ?></td>
                                             <td><?php echo $row['price']; ?></td>
 											<td><?php echo $row['color']; ?></td>
 											<td>
@@ -167,7 +170,7 @@ if(admin_session::get('is_login')){
                                             </td>
                                         </tr> 
                                         <?php }?>
-                                    </tbody>
+                                </tbody>
 						</div>
 					</div>
 				</div>
