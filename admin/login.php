@@ -59,13 +59,7 @@ if($signup){
     <section class="vh-100">
   <div class="container-fluid h-custom py-2">
     <div class="row d-flex justify-content-center align-items-center h-50">
-      <div class="col-md-9 col-lg-7 col-xl-6">
-        <img src="/evomas/img/draw2.webp"
-          class="img-fluid" alt="Sample image">
-      </div>
-      <div class="col-md-8 col-lg-3  mx-auto">
-      <div>
-      <form action="login" method="POST" class="needs-validation" novalidate> 
+      <form action="login" method="POST" class="needs-validation bg-info col-md-4 rounded mt-5 py-3 px-3" novalidate> 
       <div><?php
                     if (isset($_GET['exist'])) {?>
 						<div class="text-danger text-center alert alert-danger" role="alert">
@@ -91,7 +85,7 @@ if($signup){
           </div>
           <a href="forget-password" class="text-body mt-1">Forgot password</a>
 
-          <div class="mt-3 col-md-12 text-center">
+          <div class="mt-3 col-md-12 text-center mb-3">
             <button type="submit" class="btn btn-primary" name="submit">Login</button>
             <button type="reset" class="btn btn-danger">Cancel</button>
           </div>

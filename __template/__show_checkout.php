@@ -35,7 +35,7 @@ if($id){?>
                     <div class="card-body">
                         <h5 class="font-weight-medium mb-3">Products</h5>
                         <div class="d-flex justify-content-between">
-                            <input type="hidden" value="<?php echo "Colorful ".session::get("name");?>" id="product_name">
+                            <input type="hidden" value="<?php echo "Colorful ".session::get("name");?>" id="product_name" name="product_name">
                             <p>Name: <?php echo "Colorful ".session::get("name");?></p>
                             <input type="hidden" value="<?php echo session::get("img") ?>" id="img">
                             <img src="/my-shop/admin/men_img/<?php echo session::get("img") ?>" class="img-fluid" height="30" width="30">

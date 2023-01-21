@@ -23,7 +23,7 @@ if (session::get('is_login')) {
         $phone=$conn->real_escape_string($_POST["phone"]);
         $address=$conn->real_escape_string($_POST["address"]);
         $delivery="cash on delivery";
-        $product_name=session::get("product_name");
+        $product_name=session::get("name");
         $product_id=session::get("id");
         $img=session::get("img");
         $size=session::get("size");

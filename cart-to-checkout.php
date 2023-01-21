@@ -18,45 +18,48 @@ if (session::get('is_login')) {
     if(isset($_POST["place"])){
         $id=$conn->real_escape_string($_POST["user_id"]);
         $sql=mysqli_query($conn, "SELECT * FROM cart WHERE user_id='$id'");
-        $product_id1=array();
-        $size1=array();
-        $color1=array();
-        while($row=mysqli_fetch_array($sql)){
-            if($row['active']==0){
-                $name=$conn->real_escape_string($_POST["name"]);
-                $phone=$conn->real_escape_string($_POST["phone"]);
-                $address=$conn->real_escape_string($_POST["address"]);
-                $delivery="cash on delivery";
-                $id=$conn->real_escape_string($_POST["user_id"]);
-                $img=$row['product_img'];
-                $product_name=$row["product_name"];
-                $product_id=$row["product_id"];
-                $color=$row["color"];
-                $size=$row["size"];
-                $quantity=$row["quantity"];
-                $price=$row["total"];
-                $name=htmlspecialchars($name);
-                $phone=htmlspecialchars($phone);
-                $address=htmlspecialchars($address);
-                $id=htmlspecialchars($id);
-                $product_id1[]=$product_id;
-                $color1[]=$color;
-                $size1[]=$size;
-                $order=collection::order($id,$name,$phone,$address,$delivery,$product_id,$product_name,$img,$color,$size,$quantity,$price);
-                $place=true;
-            }else{
-                echo"<script>alert('This product already placed in order please check your order list!')</script>";
-                 header("refresh:1; url=order");
-            }  
-        }   
+        // $product_id1=array();
+        // $size1=array();
+        // $color1=array();
+        $row=mysqli_fetch_array($sql);
+        if($row['active']==0){
+            $name=$conn->real_escape_string($_POST["name"]);
+            $phone=$conn->real_escape_string($_POST["phone"]);
+            $address=$conn->real_escape_string($_POST["address"]);
+            $delivery="cash on delivery";
+            $id=$conn->real_escape_string($_POST["user_id"]);
+            $img=$_POST["img"];
+            $product_name=$_POST["product_name"];
+            $product_id=$_POST["product_id"];
+            $color=$_POST["color"];
+            $size=$_POST["size"];
+            $quantity=$_POST["quantity"];
+            $price=$_POST["price"];
+            $name=htmlspecialchars($name);
+            $phone=htmlspecialchars($phone);
+            $address=htmlspecialchars($address);
+            $id=htmlspecialchars($id);
+            $product_id=implode(",",$product_id);
+            $product_name=implode(",",$product_name);
+            $size=implode(",",$size);
+            $color=implode(",",$color);
+            $price=implode(",",$price);
+            $quantity=implode(",",$quantity);
+            $img=implode(",",$img);
+            $order=collection::order($id,$name,$phone,$address,$delivery,$product_id,$size);
+            $place=true;
+        }else{
+            echo"<script>alert('This product already placed in order please check your order list!')</script>";
+             header("refresh:1; url=order");
+        }     
     }
     if($order==true && $place==true){
-        $product_ids=implode(",", $product_id1);
-        $colors=implode(",", $color1);
-        $sizes=implode(",", $size1);
-        $product_ids=base64_encode($product_ids);
-        $colors=base64_encode($colors);
-        $sizes=base64_encode($sizes);
+        // $product_ids=implode(",", $product_id);
+        // $colors=implode(",", $color);
+        // $sizes=implode(",", $size);
+        $product_ids=base64_encode($product_id);
+        $colors=base64_encode($color);
+        $sizes=base64_encode($size);
         $msg="Order placed successfully.If you want recepit <a href='print?product_id=$product_ids&color=$colors&size=$sizes' target='_blank'>click</a>";
         // header("refresh:10; url=order");
     }

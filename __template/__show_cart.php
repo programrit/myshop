@@ -70,10 +70,14 @@
                             ?></h6>
                             
                         </div>
-                    <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Delivery Fees</h6>
-                            <h6 class="font-weight-medium"><?php if($row['SUM(total)']>=500){  echo "<p class='text-danger'>If price above 500.Free delivery</p>";}else{ echo "₹ 40";}  ?></h6>
-                        </div>
+                        <?php if($row['SUM(total)']>=500){  
+
+                        }else{ ?>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-medium">Delivery Fees</h6>
+                                <h6 class="font-weight-medium">₹40</h6>
+                            </div>
+                        <?php }  ?>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">

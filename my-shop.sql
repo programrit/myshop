@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 20, 2023 at 07:01 AM
+-- Generation Time: Jan 21, 2023 at 08:09 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -96,10 +96,6 @@ CREATE TABLE `checkout` (
   `id` int(11) NOT NULL,
   `order_id` varchar(100) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` text NOT NULL,
-  `phone` text NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `delivery` text NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_name` text NOT NULL,
   `product_img` varchar(100) NOT NULL,
@@ -107,7 +103,6 @@ CREATE TABLE `checkout` (
   `quantity` int(10) NOT NULL,
   `color` text NOT NULL,
   `price` int(20) NOT NULL,
-  `time` datetime NOT NULL,
   `status` text NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -208,9 +203,26 @@ CREATE TABLE `mens_size` (
 
 INSERT INTO `mens_size` (`id`, `product_id`, `category`, `product_type`, `size`, `quantity`, `mrp`, `price`, `active`) VALUES
 (1, 1, 'men', 'White t-shirt', 'X', 100, 200, 180, 1),
-(2, 1, 'men', 'White t-shirt', 'XL', 5, 250, 200, 1),
+(2, 1, 'men', 'White t-shirt', 'XL', 9, 250, 200, 1),
 (8, 3, 'women', 'T-shirt', 'XL', 5, 260, 230, 1),
-(10, 3, 'women', 'T-shirt', 'M', 9, 180, 150, 1);
+(10, 3, 'women', 'T-shirt', 'M', 7, 180, 150, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order_id` text NOT NULL,
+  `name` text NOT NULL,
+  `phone` text NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `delivery` varchar(100) NOT NULL,
+  `time` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -280,13 +292,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `username`, `email`, `phone`, `password`, `cofirm_password`, `token`, `active_token`, `active_time`, `active`, `otp`, `otp_verify`, `otp_verify_time`) VALUES
-(1, 'ram123', 'ramraj291101@gmail.com', '9876543210', '$2y$08$JxSTfgc31Ok.ajL5mtK4k.Xt9KWiBP3s3CcwjnxFdmPrJoQbFlJcC', '$2y$08$wmD8AHftDcepVN4RkvCgO.S8oGb5GEckNHGTqTt7enyE4xjx2pF6.', 'ac7e80647827ba1423810bb7ee2a7724', 1, '2023-01-19 12:31:59', 1, NULL, 0, NULL);
-
---
 -- Indexes for dumped tables
 --
 
@@ -345,6 +350,13 @@ ALTER TABLE `mens_size`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `profile`
 --
 ALTER TABLE `profile`
@@ -386,7 +398,7 @@ ALTER TABLE `admin_user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -423,6 +435,12 @@ ALTER TABLE `mens`
 --
 ALTER TABLE `mens_size`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -475,6 +493,12 @@ ALTER TABLE `contact`
 --
 ALTER TABLE `mens_size`
   ADD CONSTRAINT `mens_size_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `mens` (`product_id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
 -- Constraints for table `profile`

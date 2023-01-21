@@ -97,18 +97,29 @@ class product{
         }
         return $del;
     }
-    public static function order_update($id,$status){
-        $conn = DB::db();
-        $update="UPDATE checkout SET status='$status' WHERE id='$id'";
-        if($conn->query($update)===TRUE){
-                $order=true;
-        }else{
-                $order=false;
-                $order=$conn->error;
-        }
-        return $order;
-    }
+    // public static function order_update($id,$status){
+    //     $conn = DB::db();
+    //     $update="UPDATE checkout SET status='$status' WHERE id='$id'";
+    //     if($conn->query($update)===TRUE){
+    //             $order=true;
+    //     }else{
+    //             $order=false;
+    //             $order=$conn->error;
+    //     }
+    //     return $order;
+    // }
     public static function order_delete($id){
+        $conn = DB::db();
+        $delete="DELETE FROM orders WHERE order_id='$id'";
+        if($conn->query($delete)===TRUE){
+            $del=true;
+        }else{
+            $del=false;
+            $del=$conn->error;
+        }
+        return $del;
+    }
+    public static function order_del($id){
         $conn = DB::db();
         $delete="DELETE FROM checkout WHERE id='$id'";
         if($conn->query($delete)===TRUE){

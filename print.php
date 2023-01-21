@@ -41,19 +41,22 @@ if (session::get('is_login')) {
       header("refresh:1 url=order");
     }else{
       $status="pending";
-    $query="SELECT name,address,product_id,user_id,time,SUM(price),order_id FROM checkout WHERE user_id='$user_id' AND status='$status'  AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
+    $query="SELECT SUM(price),order_id FROM checkout WHERE user_id='$user_id' AND status='$status'  AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
       $result=$conn->query($query);
+      echo $query;
       if($result->num_rows>0){
         while($rows=$result->fetch_assoc()){
+          $get=mysqli_query($conn,"SELECT * FROM orders WHERE order_id='$rows[order_id]'");
+          $row1=mysqli_fetch_array($get);
           $obj=new IndianCurrency($rows['SUM(price)']);
           $total=$rows['SUM(price)']+40;
           $obj1=new IndianCurrency($total);
           if($rows['SUM(price)']>=500){
             $info=[
-              "customer"=>ucfirst("$rows[name]"),
-              "address"=>"$rows[address]",
+              "customer"=>ucfirst("$row1[name]"),
+              "address"=>"$row1[address]",
               "order_no"=>"$rows[order_id]",
-              "invoice_date"=>"$rows[time]",
+              "invoice_date"=>"$row1[time]",
               "delivery_fees"=>0,
               "total_amt"=>$rows['SUM(price)'],
               "words"=> $obj->get_words(),
@@ -75,8 +78,10 @@ if (session::get('is_login')) {
     }
     //customer and invoice details  
   //invoice Products
+    $products_info=[];
     $status="pending";
     $query1="SELECT * FROM checkout WHERE user_id='$user_id' AND status='$status' AND (size IN ('".$sizes."')) AND (product_id IN ('".$product_ids."')) AND (color IN ('".$colors."'))";
+    echo $query1;
     $result1=$conn->query($query1);
       if($result1->num_rows>0){
           while($row=$result1->fetch_assoc()){
@@ -99,7 +104,7 @@ if (session::get('is_login')) {
       $this->SetFont('Arial','B',14);
       $this->Cell(50,10,"My-shop",0,1);
       $this->SetFont('Arial','',14);
-      $this->Cell(50,7,"North Street,",0,1);
+      $this->Cell(50,7,"Middle Street,",0,1);
       $this->Cell(50,7,"Srivilliputhur 636002.",0,1);
       $this->Cell(50,7,"PH : 9876543210",0,1);
       

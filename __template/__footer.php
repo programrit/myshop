@@ -44,7 +44,7 @@ if (session::get('is_login')) {
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="index?user=<?php echo base64_encode(strrev($user1)); ?>"><i class="fa fa-angle-right mr-2"></i>Home</a>
                             <a class="text-dark mb-2" href="mens"><i class="fa fa-angle-right mr-2"></i>Mens collection</a>
                             <a class="text-dark mb-2" href="womens"><i class="fa fa-angle-right mr-2"></i>Womens collection</a>
                             <a class="text-dark mb-2" href="kids"><i class="fa fa-angle-right mr-2"></i>Kids collection</a>

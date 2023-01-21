@@ -22,29 +22,31 @@ if (session::get('is_login')) {
     $product_id=base64_decode($product_id);
     $size=base64_decode($size);
     $status="pending";
-    $query="SELECT name,address,user_id,time,price FROM checkout WHERE user_id='$row[id]'AND product_id='$product_id' AND size='$size' AND status='$status'";
+    $query="SELECT order_id,price FROM checkout WHERE user_id='$row[id]'AND product_id='$product_id' AND size='$size' AND status='$status'";
     $result=$conn->query($query);
     if($result->num_rows>0){
         $rows=$result->fetch_assoc();
+        $get=mysqli_query($conn,"SELECT * FROM orders WHERE order_id='$rows[order_id]'");
+        $row1=mysqli_fetch_array($get);
           $obj=new IndianCurrency($rows['price']);
           $total=$rows['price']+40;
           $obj1=new IndianCurrency($total);
           if($rows['price']>=500){
             $info=[
-              "customer"=>ucfirst("$rows[name]"),
-              "address"=>"$rows[address]",
-              "user_no"=>"$rows[user_id]",
-              "invoice_date"=>"$rows[time]",
+              "customer"=>ucfirst("$row1[name]"),
+              "address"=>"$row1[address]",
+              "order_no"=>"$rows[order_id]",
+              "invoice_date"=>"$row1[time]",
               "delivery_fees"=>0,
               "total_amt"=>$rows['price'],
               "words"=> $obj->get_words(),
             ];
           }else{
             $info=[
-              "customer"=>ucfirst("$rows[name]"),
-              "address"=>"$rows[address]",
-              "user_no"=>"$rows[user_id]",
-              "invoice_date"=>"$rows[time]",
+              "customer"=>ucfirst("$row1[name]"),
+              "address"=>"$row1[address]",
+              "order_no"=>"$rows[order_id]",
+              "invoice_date"=>"$row1[time]",
               "delivery_fees"=>40,
               "total_amt"=>$rows['price']+40,
               "words"=> $obj1->get_words(),
@@ -108,7 +110,7 @@ if (session::get('is_login')) {
       //Display Invoice no
       $this->SetY(55);
       $this->SetX(-60);
-      $this->Cell(50,7,"User No : ".$info["user_no"]);
+      $this->Cell(50,7,"Order No : ".$info["order_no"]);
       
       //Display Invoice date
       $this->SetY(63);

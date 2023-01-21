@@ -8,23 +8,35 @@ admin_session::start();
 if (session_status()===PHP_SESSION_NONE) {
     echo"<script>alert('Session not start')</script>";
 }
-error_reporting(0);
-$update=false;
-$order=null;
-
+$msg=null;
+$msg1=null;
 if(admin_session::get('is_login')){
 	$user1=admin_session::get('email');
-	if(isset($_POST["update"])){
+	if(isset($_POST["status"])){
 		$status=$conn->real_escape_string($_POST["status"]);
         $id=$conn->real_escape_string($_POST["id"]);
 		$id=htmlspecialchars($id);
 		$status=htmlspecialchars($status);
-		$order=product::order_update($id, $status);
-		$update=true;
+		$order=$conn->real_escape_string($_POST["order_id"]);
+		$order=htmlspecialchars($order);
+		$update="UPDATE checkout SET status='$status' WHERE id='$id'";
+        if($conn->query($update)===TRUE){
+			$msg="Order status update successfully!";
+        	header("refresh:2; url=order-edit?id=".base64_encode($order));
+		}else{
+			$msg1="Something went wrong!";
+        	header("refresh:2; url=order-list");
+		}
 	}
-	if($order && $update){
-		$msg="Order status update successfully!";
-        header("refresh:2; url=order-list");
+	if(isset($_POST["delete"])){
+		$id=$conn->real_escape_string($_POST["delete"]);
+		$id=htmlspecialchars($id);
+		$del=product::order_del($id);
+		$delete=true;
+	}
+	if($del==true && $delete==true){
+		$msg="Order deleted successfully!";
+		header("refresh:2; url=order-list");
 	}
 	?>
 	<!DOCTYPE php>
@@ -65,38 +77,97 @@ if(admin_session::get('is_login')){
 							Edit Table
 						</div>
 						<div class="card-body">
-							<?php
-							$id1=base64_decode($_GET['id']);
-							$id=$conn->real_escape_string($id1);
-							$id=htmlspecialchars($id);
-							$query="SELECT * FROM checkout WHERE id='$id'";
-							$result=$conn->query($query);
-							while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
-                                    <form action="" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
-                                        <div class="row">
-											<input type="hidden" name="id" value="<?php echo $id ?>" >
-											<div class="col-md-6 mb-3">
-                                                <label for="">Status</label>
-                                                <select class="form-control" name="status">
-                                                    <option value="<?php echo $row['status']; ?>" selected><?php echo $row['status']; ?></option>
-                                                    <?php if($row['status']=="pending"){?>
-                                                        <option value="confirm">confirm</option>
-                                                        <option value="delivery">delivery</option>
-                                                        <option value="cancel">cancel</option>
-                                                    <?php } else if($row['status']=="confirm"){?>
-                                                        <option value="delivery">delivery</option>
-                                                        <option value="cancel">cancel</option>
-                                                        <option value="pending">pending</option>
-                                                    <?php }else if($row['status']=="cancel"){?>
-                                                    <?php }?>
-                                                </select>
+						<table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Order Id</th>
+                                            <th>Product Id</th>
+                                            <th>Product Name</th>
+                                            <th>Product Image</th>
+                                            <th>Size</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Color</th>
+											<th>Status</th>
+											<th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Order Id</th>
+                                            <th>Product Id</th>
+                                            <th>Product Name</th>
+                                            <th>Product Image</th>
+                                            <th>Size</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Color</th>
+											<th>Status</th>
+											<th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <?php
+								       $id1=base64_decode($_GET['id']);
+									   $id=$conn->real_escape_string($id1);
+									   $id=htmlspecialchars($id);
+									   $query="SELECT * FROM checkout WHERE order_id='$id'";
+									   $result=$conn->query($query);
+									   while($row=$result->fetch_array(MYSQLI_ASSOC)){?>
+                                        <tr>
+                                            <td><?php echo $row['id']; ?></td>
+                                            <td><?php echo $row['order_id']; ?></td>
+                                            <td><?php echo $row['product_id']; ?></td>
+                                            <td><?php echo $row['product_name']; ?></td>
+                                            <td><img src="/my-shop/admin/men_img/<?php echo $row['product_img']; ?>" alt="" style="width: 50px;"></td>
+                                            <td><?php echo $row['size']; ?></td>
+                                            <td><?php echo $row['quantity']; ?></td>
+                                            <td><?php echo $row['price']; ?></td>
+											<td><?php echo $row['color']; ?></td>
+											<td>
+											<form action="" method="POST">
+												<input type="hidden" value="<?php echo $row['order_id']; ?>" name="order_id">
+												<input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+												<select name="status" class="form-control" onchange="this.form.submit();">
+												<?php
+												if($row["status"]=="pending"){?>
+													<option value="pending">pending</option>
+													<option value="confirm">confirm</option>
+													<option value="delivery">delivery</option>
+													<option value="cancel">cancel</option>
+												<?php }else if($row["status"]=="confirm"){?>
+													<option value="confirm">confirm</option>
+													<option value="delivery">delivery</option>
+													<option value="pending">pending</option>
+													<option value="cancel">cancel</option>
+												<?php }else if($row["status"]=="delivery"){?>
+													<option value="delivery">delivery</option>
+													<option value="confirm">confirm</option>
+													<option value="pending">pending</option>
+													<option value="cancel">cancel</option>
+												<?php }else if($row["status"]=="cancel"){?>
+													<option value="cancel">cancel</option>
+													<option value="pending">pending</option>
+													<option value="confirm">confirm</option>
+													<option value="delivery">delivery</option>
+												<?php }
+												?>
+												</select>
+												</form>
+											</td>
+                                            <td>
+                                            <div class="btn-group">
+                                            <button class="btn btn-primary" style="height: 30px;"><a href="order-edit?id=<?php echo base64_encode($row['id']); ?>" style="text-decoration: none;" class="text-white"><i class="fa-solid fa-pen-to-square"></i></a></button>
+                                                <form action="" method="POST">
+													<button class="btn btn-danger" onclick="return order_delete()" name="delete" type="submit" value="<?php echo $row['id']; ?>"><i class="fa-solid fa-trash"></i></button>
+											   </form>
                                             </div>
-                                            <div class="col-md-12 mb-3 text-center">
-                                                <button class="btn btn-primary" type="submit" name="update">Update</button>
-                                            </div>
-                                        </div>
-                                    </form>
-									<?php }?>
+                                            </td>
+                                        </tr> 
+                                        <?php }?>
+                                    </tbody>
 						</div>
 					</div>
 				</div>
@@ -112,6 +183,9 @@ if(admin_session::get('is_login')){
     window.onunload=function(){ null };
     if(window.history.replaceState){
             window.history.replaceState(null, null, window.location.href);
+    }
+    function order_delete(){
+        return confirm("Are you sure you want to delete this data?");
     }
 	</script>
 	<script src="js/scripts.js"></script>
