@@ -74,7 +74,7 @@ if(isset($_GET["verify"])){
             $curl = curl_init();
             
             curl_setopt_array($curl, array(
-              CURLOPT_URL => "https://2factor.in/API/V1/a925524e-8aa7-11ed-9158-0200cd936042/SMS/+91{$reverse}/{$otps}",
+              CURLOPT_URL => "https://2factor.in/API/V1/YOUR_API_KEY/SMS/+91{$reverse}/{$otps}",
               CURLOPT_RETURNTRANSFER => true,
               CURLOPT_ENCODING => '',
               CURLOPT_MAXREDIRS => 10,
