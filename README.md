@@ -14,8 +14,9 @@ First download project after download, unzip the folder. create database my-shop
 #output
 
 
-![Screenshot (31)](https://user-images.githubusercontent.com/95410082/212461300-355903f1-c89b-4d90-b131-4ef0a973221d.png)
-![Screenshot (32)](https://user-images.githubusercontent.com/95410082/212461301-8e9a324d-127a-4402-8ae0-ff782bfd0e49.png)
-![Screenshot (33)](https://user-images.githubusercontent.com/95410082/212461303-445d8146-a913-4395-b10d-f4f1134e6270.png)
-![download](https://user-images.githubusercontent.com/95410082/212461305-d26b0aba-8548-4f47-911a-7831ec7a9a93.png)
-![Screenshot (30)](https://user-images.githubusercontent.com/95410082/212461306-3956e374-9d7f-4915-bdf5-0224e2228e6c.png)
+
+![user-login-page](https://user-images.githubusercontent.com/95410082/214482406-90ed2b20-725f-4e19-8c6b-c8921ae9e549.png)
+![user-signup-page](https://user-images.githubusercontent.com/95410082/214482414-a0b0e6d9-fb90-4b37-91c8-3bcd533534a3.png)
+![admin-home-page](https://user-images.githubusercontent.com/95410082/214482416-1682d3fb-df7e-4a6b-a8cf-c7cbac6a36eb.png)
+![admin-login-page](https://user-images.githubusercontent.com/95410082/214482418-6678dd84-79ec-434a-a458-9b2a29bce7a0.png)
+![user-home-page](https://user-images.githubusercontent.com/95410082/214482420-66da25fa-4ba1-43f1-bdf9-bc9c2587e94e.png)
