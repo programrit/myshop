@@ -12,6 +12,7 @@ $del=false;
 $remove=false;
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     if(isset($_POST["remove"])){
         $id=$conn->real_escape_string($_POST["remove"]);
         $id=htmlspecialchars($id);

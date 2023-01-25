@@ -20,7 +20,7 @@ if($id==isset($row["order_id"])){
                         <th>Color</th>
                         <th>Size</th>
                         <th>Quantity</th>
-                        <th>Product rice</th>
+                        <th>Product price</th>
                         <th>Price</th>
                         <th>Status</th>
                         <th>Cancel</th>
@@ -111,7 +111,7 @@ if($id==isset($row["order_id"])){
     </div>
 </div>
 <?php }else{
-    echo "<script>alert('Something went wrong!')</script>";
+    echo "<script>alert('Invalid order id!')</script>";
     header("refresh:1; url=order");
     }
 ?>

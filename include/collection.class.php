@@ -41,14 +41,20 @@ class collection{
         $conn = DB::db();
         $status1="confirm";
         $status2="pending";
+        $status3="remove";
         $order_id="ORDER_".rand(1111,9999).substr($phone,8);
-        $query="SELECT * FROM checkout WHERE user_id='$id' AND product_id IN('$product_id') AND size IN('$size') AND status='$status2' OR status='$status1'";
+        $product_id=explode(",",$product_id);
+        $product_id=implode("','",$product_id);
+        $size=explode(",",$size);
+        $size=implode("','",$size);
+        $query="SELECT * FROM checkout WHERE user_id='$id' AND product_id IN('$product_id') AND size IN('$size') AND (status='$status2' OR status='$status1' OR status='$status3')";
+        echo $query;
         $result=$conn->query($query);
         date_default_timezone_set('Asia/Kolkata');
         $current_date=date("Y/m/d H:i:s");
         if($result->num_rows>0){
             echo"<script>alert('This product already placed in order please check your order list!')</script>";
-            // header("refresh:1; url=order");
+            header("refresh:1; url=order");
             $order=false;
         }else{
             $place="INSERT INTO orders (user_id,order_id,name,phone,address,delivery,time) VALUES('$id','$order_id','$name','$phone','$address','$delivery','$current_date')";
@@ -71,7 +77,13 @@ class collection{
                             $qty=$get["quantity"]-$quantity;
                             $change=mysqli_query($conn,"UPDATE mens_size SET quantity='$qty' WHERE product_id='$product_id1' AND size='$size1'");
                             if($change===true){
-                                $order=true;
+                                $del=mysqli_query($conn,"DELETE FROM cart WHERE user_id='$id' AND  product_id IN('$product_id') AND size IN('$size')");
+                                if($del===TRUE){
+                                    $order=true;
+                                }else{
+                                    $order=false;
+                                    $order=$conn->error;
+                                }
                             }else{
                                 $order=false;
                                 $order=$conn->error;
@@ -121,8 +133,9 @@ class collection{
         $conn = DB::db();
         $status1="confirm";
         $status2="pending";
+        $status3="remove";
         $order_id="ORDER_".rand(1111,9999).substr($phone,8);
-        $query="SELECT * FROM checkout WHERE user_id='$user_id' AND product_id='$product_id' AND size='$size' AND status='$status2' OR status='$status1'";
+        $query="SELECT * FROM checkout WHERE user_id='$user_id' AND product_id='$product_id' AND size='$size' AND (status='$status2' OR status='$status1' OR status='$status3')";
         $result=$conn->query($query);
         date_default_timezone_set('Asia/Kolkata');
         $current_date=date("Y/m/d H:i:s");

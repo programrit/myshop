@@ -12,17 +12,8 @@ $del=false;
 $remove=false;
 if (session::get('is_login')) {
     $user1=session::get('username');
-    if(isset($_POST["remove"])){
-        $id=$conn->real_escape_string($_POST["remove"]);
-        $id=htmlspecialchars($id);
-        $del=collection::remove_order($id);
-        $remove=true;
-
-    }
-    if($del===true && $remove ==true){
-        echo "<script>alert('Product cancel successfully!')</script>";
-        header("refresh:1; url=order");
-    }?>
+    $user2=session::get('id');
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,11 +86,7 @@ if (session::get('is_login')) {
     <!-- Contact Javascript File -->
     <script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>
-    <script>
-        function checkdelete(){
-            return confirm("Are you sure you want to cancel this order? ");
-        }        
-    </script>
+    
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>

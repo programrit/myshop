@@ -22,5 +22,5 @@ if(isset($row["otp"])){
         header("Location: otp-verify");
     }
 }else{
-    header("Location: index?user".base64_encode(strrev($user1)));
+    header("Location: index?user".base64_encode(strrev($user2)));
 }

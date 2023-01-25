@@ -9,6 +9,7 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     $reset=false;
     $msg1=null;
     $msg=null;
@@ -29,7 +30,7 @@ if (session::get('is_login')) {
     }
     if($reset_password==true && $reset==true){
         $msg1="Password update successfully!";
-        header("refresh:3; url=index?user=".base64_encode(strrev($user1)));
+        header("refresh:3; url=index?user=".base64_encode(strrev($user2)));
     }
     
     

@@ -11,17 +11,17 @@ if($id1){?>
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label>Name</label>
-                        <input class="form-control" name="name" pattern="[a-zA-Z]{3,}" type="text" required placeholder="Enter your name"> 
+                        <input class="form-control" id="name" name="name" pattern="[a-zA-Z]{3,}" type="text" required placeholder="Enter your name"> 
                         <div class="invalid-feedback">Enter valid name</div>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>Mobile No</label>
-                        <input required class="form-control" pattern="[6-9]{1}[0-9]{9}" name="phone" type="number" required placeholder="Enter your mobile no">
+                        <input required class="form-control" id="phone" pattern="[6-9]{1}[0-9]{9}" name="phone" type="text" required placeholder="Enter your mobile no">
                         <div class="invalid-feedback">Enter valid phone no</div>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>Address Line 1</label>
-                        <textarea class="form-control" name="address" required minlength="20" maxlength="100" placeholder="Enter full address detail"></textarea>
+                        <textarea class="form-control" id="address" name="address" required minlength="20" maxlength="100" placeholder="Enter full address detail"></textarea>
                         <div class="invalid-feedback">Enter valid full address</div>
                     </div>
 
@@ -38,7 +38,7 @@ if($id1){?>
                         $sql=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
                         $rows=mysqli_fetch_array($sql);
                         $user=$rows['id']; ?>
-                        <input type="hidden" name="user_id" value="<?php echo $user; ?>">
+                        <input type="hidden" name="user_id" id="user_id" value="<?php echo $user; ?>">
                         <?php $query="SELECT * FROM cart WHERE user_id='$user' AND active='0'";
                         $result=$conn->query($query);
                         $count=1;
@@ -47,13 +47,13 @@ if($id1){?>
                             <input type="hidden" name="product_id[]" value="<?php echo $row['product_id']; ?>">
                             <div class="row">
                                 <div class="col-lg-6 pb-3">
-                                <input type="hidden" name="user_id" value="<?php echo $user; ?>">
+                                <input type="hidden" class="user_id" name="user_id" value="<?php echo $user; ?>">
                                     <input type="hidden" name="img[]" value="<?php echo $row['product_img']; ?>">
                                     <img src="/my-shop/admin/men_img/<?php echo $row['product_img'];?>" class="img-fluid w-100">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="hidden" name="product_name[]" value="<?php echo $row['product_name']; ?>">
-                                    <input type="hidden" name="size[]" value="<?php echo $row['size']; ?>">
+                                    <input type="hidden"  name="product_name[]" value="<?php echo $row['product_name']; ?>">
+                                    <input type="hidden"  name="size[]" value="<?php echo $row['size']; ?>">
                                     <input type="hidden" name="quantity[]" value="<?php echo $row['quantity']; ?>">
                                     <input type="hidden" name="color[]" value="<?php echo $row['color']; ?>">
                                     <p class="ml-5">Product No: <?php echo $count++; ?></p>
@@ -114,6 +114,7 @@ if($id1){?>
                                 <h6 class="font-weight-medium ml-5">Total</h6>
                             </div>
                             <div class="col-lg-6">
+                                <input type="hidden" value=" <?php if($row['SUM(total)']>=500){ echo $row['SUM(total)'];}else{ echo $row['SUM(total)']+40;} ?>" id="total">
                             <h6 class="font-weight-medium ml-5">₹ <?php if($row['SUM(total)']>=500){ echo $row['SUM(total)'];}else{ echo $row['SUM(total)']+40;} ?></h6>
                             </div>
                         </div>    
@@ -128,7 +129,8 @@ if($id1){?>
                         <?php
                             if($row['SUM(total)']>40){ ?>
                                 <button type="submit" name="place" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
-                            <?php }else{ ?>
+                                <a href="javascript:void(0)" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 buy_now">Online Payment</a>
+                                <?php }else{ ?>
                                 <button type="submit" disabled name="place"  class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
                             <?php }
                         ?>

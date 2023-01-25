@@ -28,23 +28,23 @@ if (session::get('is_login')) {
 
 
 ?>
-<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+<div class="container-fluid text-dark mt-5 pt-5" style="background-color: #FFF2FD;">
         <div class="row px-xl-5 pt-5">
             <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
                 <a href="" class="text-decoration-none">
-                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border border-white px-3 mr-1">E</span>Shopper</h1>
+                    <h1 class="mb-4 display-5 font-weight-semi-bold"><span class="font-weight-bold border border-white px-3 mr-1" style="color: #c5837c;">E</span>Shopper</h1>
                 </a>
                 <p>Any faith that admires truth, that strives to know God, must be brave enough to accommodate the universe.</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Srivilliputhur virudhunagar</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>ram@gmail.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+91 9876543210</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt mr-3" style="color: #c5837c;"></i>Srivilliputhur virudhunagar</p>
+                <p class="mb-2"><i class="fa fa-envelope mr-3" style="color: #c5837c;"></i>ram@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt  mr-3" style="color: #c5837c;"></i>+91 9876543210</p>
             </div>
             <div class="col-lg-8 col-md-12">
                 <div class="row">
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Quick Links</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index?user=<?php echo base64_encode(strrev($user1)); ?>"><i class="fa fa-angle-right mr-2"></i>Home</a>
+                            <a class="text-dark mb-2" href="index?user=<?php echo base64_encode(strrev($user2)); ?>"><i class="fa fa-angle-right mr-2"></i>Home</a>
                             <a class="text-dark mb-2" href="mens"><i class="fa fa-angle-right mr-2"></i>Mens collection</a>
                             <a class="text-dark mb-2" href="womens"><i class="fa fa-angle-right mr-2"></i>Womens collection</a>
                             <a class="text-dark mb-2" href="kids"><i class="fa fa-angle-right mr-2"></i>Kids collection</a>
@@ -63,7 +63,7 @@ if (session::get('is_login')) {
                                     required/>
                             </div>
                             <div>
-                                <button class="btn btn-primary btn-block border-0 py-3" name="subcribe" type="submit">Subscribe Now</button>
+                                <button class="btn btn-block border-0 py-3" style="background-color: #c5837c;" name="subcribe" type="submit">Subscribe Now</button>
                             </div>
                         </form>
                     </div>

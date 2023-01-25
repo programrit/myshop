@@ -12,6 +12,7 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     $users=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
     $fetch=mysqli_fetch_array($users);
     $user_id=$fetch["id"];

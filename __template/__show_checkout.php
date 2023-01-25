@@ -11,17 +11,17 @@ if($id){?>
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label>Name</label>
-                            <input class="form-control"  name="name" pattern="[a-zA-Z]{3,}" type="text" required placeholder="Enter your name"> 
+                            <input class="form-control" id="name"  name="name" pattern="[a-zA-Z]{3,}" type="text" required placeholder="Enter your name"> 
                             <div class="invalid-feedback">Enter valid name</div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Mobile No</label>
-                            <input required class="form-control" name="phone" pattern="[6-9]{1}[0-9]{9}" type="text" required placeholder="Enter your mobile no">
+                            <input required class="form-control"  id="phone" name="phone" pattern="[6-9]{1}[0-9]{9}" type="text" required placeholder="Enter your mobile no">
                             <div class="invalid-feedback">Enter valid phone no</div>
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Address Line 1</label>
-                            <textarea class="form-control" name="address" required minlength="20" maxlength="100" placeholder="Enter full address detail"></textarea>
+                            <textarea class="form-control" id="address" name="address" required minlength="20" maxlength="100" placeholder="Enter full address detail"></textarea>
                             <div class="invalid-feedback">Enter valid full address</div>
                         </div>
                     </div>
@@ -63,7 +63,8 @@ if($id){?>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Total</h5>
-                            <input type="hidden" id="amount" value="<?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}?>">
+                            <input type="hidden" value="<?php echo session::get("total");?>" id="price">
+                            <input type="hidden" id="total" value="<?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}?>">
                             <h5 class="font-weight-bold">₹ <?php if(session::get('total')>=500){  echo session::get("total");}else{ echo session::get("total")+40;}  ?></h5>
                             <input type="hidden" id="product_id" value="<?php echo $id1;?>">
                         </div>
@@ -74,8 +75,14 @@ if($id){?>
                         <h4 class="font-weight-semi-bold m-0">Payment</h4>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button type="submit" name="place" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
-                        <!-- <button type="submit" id="rzp-button1" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Order</button> -->
+                       <?php
+                            if(session::get('total')>=40){?>
+                                <button type="submit" name="place" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
+                                <a href="javascript:void(0)" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 buy_now" >Online Payment</a>
+                            <?php }else{?>
+                                <button type="submit" name="place" disabled class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Cash on delivery</button>
+                            <?php }
+                       ?>
                     </div>
                 </div>
             </div>
@@ -83,6 +90,6 @@ if($id){?>
     </form>
     
 <?php }else{
-    header("Location: login");
+    header("Location: index?user=".base64_encode(strrev($user2)));
 }?>
 

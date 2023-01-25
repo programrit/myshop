@@ -1,7 +1,7 @@
 <?php
 if($_GET['search']==null){
     echo"<script>alert('Search field is empty!')</script>";
-    header("Refresh:1;url=index?user=".base64_encode(strrev($user1)));
+    header("Refresh:1;url=index?user=".base64_encode(strrev($user2)));
 }else{
     $search= $conn->real_escape_string($_GET['search']);
     $search=htmlspecialchars($search);

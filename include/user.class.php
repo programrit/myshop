@@ -133,8 +133,12 @@ class user{
 		if(isset($row["email"])==$email){
 			if($row["username"]==$username){
                 session::set('is_login', true);
-                session::set("username", $username);
-				header("Location: index?user=".base64_encode(strrev($username)));
+                $sqls=mysqli_query($conn,"SELECT * FROM user WHERE username='$username'");
+	            $row1=mysqli_fetch_array($sqls);
+	            $id=$row1["user_id"];
+	            session::set('username', $username);
+	            session::set('id', $id);
+				header("Location: index?user=".base64_encode(strrev($id)));
 			}else{
 				header("Location: login?exist=Email already exist you can't login with google!");
                 $users=false;

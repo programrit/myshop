@@ -10,6 +10,7 @@ if (session_status()===PHP_SESSION_NONE) {
 
 if(session::get('is_login')){
     $user1=session::get('username');
+    $user2=session::get('id');
     $sql="SELECT * FROM user WHERE username='$user1'";
     $result=$conn->query($sql);
     $row=$result->fetch_array(MYSQLI_ASSOC);
@@ -27,7 +28,7 @@ if(session::get('is_login')){
     }
     header("Location: login");
 }else{
-    header("Location:index?user=".base64_encode(strrev($user1)));
+    header("Location:index?user=".base64_encode(strrev($user2)));
 }
 
 

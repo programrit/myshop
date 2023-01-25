@@ -1,8 +1,8 @@
 <div class="container-fluid">
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a href="index?user=<?php echo base64_encode(strrev($user1)); ?>" class="text-decoration-none">
-                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">my</span>shop</h1>
+                <a href="index?user=<?php echo base64_encode(strrev($user2)); ?>" class="text-decoration-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span class="font-weight-bold border px-3 mr-1" style="color: #c5837c;">my</span>shop</h1>
                 </a>
             </div>
             <div class="col-lg-6 col-6 text-left">
@@ -10,7 +10,7 @@
                     <div class="input-group">
                         <input type="text" name="search" class="form-control" placeholder="Search for products">
                         <div class="input-group-append">
-                            <button class="btn bg-transparent text-primary" type="submit">
+                            <button class="btn bg-transparent" type="submit" style="color: #c5837c;">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -30,8 +30,8 @@
 						$count=$row;
 					}
                     ?>
-                    <i class="fas fa-store text-primary"></i>
-                    <span class="badge"><?php echo $count; ?></span>
+                    <i class="fas fa-store" style="color: #c5837c;"></i>
+                    <span class="badge text-dark"><?php echo $count; ?></span>
                 </a>
                 <a href="cart" class="btn border">
                 <?php
@@ -45,8 +45,8 @@
 						$count=$row;
 					}
 					?>
-                    <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge"><?php echo $count; ?></span>
+                    <i class="fas fa-shopping-cart" style="color: #c5837c;"></i>
+                    <span class="badge text-dark"><?php echo $count; ?></span>
                 </a>
             </div>
         </div>

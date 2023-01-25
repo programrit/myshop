@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 21, 2023 at 08:09 AM
+-- Generation Time: Jan 23, 2023 at 03:07 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -202,10 +202,10 @@ CREATE TABLE `mens_size` (
 --
 
 INSERT INTO `mens_size` (`id`, `product_id`, `category`, `product_type`, `size`, `quantity`, `mrp`, `price`, `active`) VALUES
-(1, 1, 'men', 'White t-shirt', 'X', 100, 200, 180, 1),
-(2, 1, 'men', 'White t-shirt', 'XL', 9, 250, 200, 1),
-(8, 3, 'women', 'T-shirt', 'XL', 5, 260, 230, 1),
-(10, 3, 'women', 'T-shirt', 'M', 7, 180, 150, 1);
+(1, 1, 'men', 'White t-shirt', 'X', 98, 200, 180, 1),
+(2, 1, 'men', 'White t-shirt', 'XL', 8, 250, 200, 1),
+(8, 3, 'women', 'T-shirt', 'XL', 2, 260, 230, 1),
+(10, 3, 'women', 'T-shirt', 'M', 0, 180, 150, 1);
 
 -- --------------------------------------------------------
 
@@ -272,11 +272,22 @@ CREATE TABLE `subcribe` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `triggers`
+--
+
+CREATE TABLE `triggers` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
+  `user_id` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` text NOT NULL,
@@ -290,6 +301,17 @@ CREATE TABLE `user` (
   `otp_verify` int(11) NOT NULL DEFAULT 0 COMMENT '0=not_send,1=send,2=expired,3=use',
   `otp_verify_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Triggers `user`
+--
+DELIMITER $$
+CREATE TRIGGER `Genarate_user_id` BEFORE INSERT ON `user` FOR EACH ROW BEGIN
+	INSERT INTO triggers VALUES (NULL);
+    SET NEW.user_id =CONCAT("USER_",LPAD(LAST_INSERT_ID(),3,"0"));
+    END
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -377,6 +399,12 @@ ALTER TABLE `subcribe`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `triggers`
+--
+ALTER TABLE `triggers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -398,7 +426,7 @@ ALTER TABLE `admin_user`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -455,10 +483,16 @@ ALTER TABLE `review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `triggers`
+--
+ALTER TABLE `triggers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

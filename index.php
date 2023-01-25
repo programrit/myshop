@@ -15,131 +15,131 @@ if (session_status()===PHP_SESSION_NONE) {
     echo"<script>alert('Session not start')</script>";
 }
 $user=base64_decode($_GET['user']);
-
 if(session::get('is_login')){
     $user1=session::get('username');
+    $user2=session::get('id');
     $users=strrev($user);
-if ($user1==$users){
-    $query="SELECT * FROM user WHERE username='$user1'";
-	$result=$conn->query($query);
-	$row=$result->fetch_assoc();
-    if(isset($row["username"])==$users){
-        $update=mysqli_query($conn,"UPDATE user SET active='1' WHERE username='$user1'");
-        $profile=false;
-        $pro=false;
-        $profile1=false;
-        $pro1=false;
-        if (isset($_POST["save"])) {
-            $id=$conn->real_escape_string($_POST["id"]);
-            $name=$conn->real_escape_string($_POST["name"]);
-            $date_of_birth=$conn->real_escape_string($_POST["birth"]);
-            $address=$conn->real_escape_string($_POST["address"]);
-            $id=htmlspecialchars($id);
-            $date_of_birth=htmlspecialchars($date_of_birth);
-            $name=htmlspecialchars($name);
-            $address=htmlspecialchars($address);
-            $avatar=$_FILES["avatar"]["name"];
-            move_uploaded_file($_FILES["avatar"]["tmp_name"], "C:/xampp/htdocs/my-shop/profile/".$_FILES["avatar"]["name"]);
-            $profile=user::profile($id, $name, $date_of_birth, $address, $avatar);
-            $pro=true;
-        }
-        if ($profile==true && $pro==true) {
-            echo "<script>alert('Profile add successfully!')</script>";
-            header("refresh:1; url=index?user=".base64_encode(strrev($user1)));
-        }
-        if (isset($_POST["update"])) {
-            $id=$conn->real_escape_string($_POST["id"]);
-            $name=$conn->real_escape_string($_POST["name"]);
-            $date_of_birth=$conn->real_escape_string($_POST["birth"]);
-            $address=$conn->real_escape_string($_POST["address"]);
-            $id=htmlspecialchars($id);
-            $date_of_birth=htmlspecialchars($date_of_birth);
-            $name=htmlspecialchars($name);
-            $address=htmlspecialchars($address);
-            $avatar=$_FILES["avatar"]["name"];
-            if ($avatar==null) {
-                $select="SELECT * FROM profile WHERE user_id='$id'";
-                $selected=$conn->query($select);
-                $fetch=$selected->fetch_assoc();
-                $avatar=$fetch["avatar"];
-            } else {
-                $select1="SELECT * FROM profile WHERE user_id='$id'";
-                $selected1=$conn->query($select1);
-                $fetch1=$selected1->fetch_assoc();
-                $delete="C:/xampp/htdocs/my-shop/profile/$fetch1[avatar]";
-                if (is_file($delete)) {
-                    unlink($delete);
-                    $avatar=$_FILES["avatar"]["name"];
-                    move_uploaded_file($_FILES["avatar"]["tmp_name"], "C:/xampp/htdocs/my-shop/profile/".$_FILES["avatar"]["name"]);
-                } else {
-                    echo "<script>alert('Something went wrong. Please try again later!')</script>";
-                    header("refresh:1; url=index?user=".base64_encode(strrev($user1)));
-                }
+    if ($user2==$users){
+        $query="SELECT * FROM user WHERE user_id='$user2'";
+	    $result=$conn->query($query);
+	    $row=$result->fetch_assoc();
+        if(isset($row["user_id"])==$users){
+            $update=mysqli_query($conn,"UPDATE user SET active='1' WHERE user_id='$user2'");
+            $profile=false;
+            $pro=false;
+            $profile1=false;
+            $pro1=false;
+            if (isset($_POST["save"])) {
+                $id=$conn->real_escape_string($_POST["id"]);
+                $name=$conn->real_escape_string($_POST["name"]);
+                $date_of_birth=$conn->real_escape_string($_POST["birth"]);
+                $address=$conn->real_escape_string($_POST["address"]);
+                $id=htmlspecialchars($id);
+                $date_of_birth=htmlspecialchars($date_of_birth);
+                $name=htmlspecialchars($name);
+                $address=htmlspecialchars($address);
+                $avatar=$_FILES["avatar"]["name"];
+                move_uploaded_file($_FILES["avatar"]["tmp_name"], "C:/xampp/htdocs/my-shop/profile/".$_FILES["avatar"]["name"]);
+                $profile=user::profile($id, $name, $date_of_birth, $address, $avatar);
+                $pro=true;
             }
-            $profile1=user::profile_update($id, $name, $date_of_birth, $address, $avatar);
-            $pro1=true;
-        }
-        if ($profile1==true && $pro1==true) {
-            echo "
-                <script>
-                   alert('profile update successfully!');
-                </script> 
+            if ($profile==true && $pro==true) {
+                echo "<script>alert('Profile add successfully!')</script>";
+                header("refresh:1; url=index?user=".base64_encode(strrev($user2)));
+            }
+            if (isset($_POST["update"])) {
+                $id=$conn->real_escape_string($_POST["id"]);
+                $name=$conn->real_escape_string($_POST["name"]);
+                $date_of_birth=$conn->real_escape_string($_POST["birth"]);
+                $address=$conn->real_escape_string($_POST["address"]);
+                $id=htmlspecialchars($id);
+                $date_of_birth=htmlspecialchars($date_of_birth);
+                $name=htmlspecialchars($name);
+                $address=htmlspecialchars($address);
+                $avatar=$_FILES["avatar"]["name"];
+                if ($avatar==null) {
+                    $select="SELECT * FROM profile WHERE user_id='$id'";
+                    $selected=$conn->query($select);
+                    $fetch=$selected->fetch_assoc();
+                    $avatar=$fetch["avatar"];
+                } else {
+                    $select1="SELECT * FROM profile WHERE user_id='$id'";
+                    $selected1=$conn->query($select1);
+                    $fetch1=$selected1->fetch_assoc();
+                    $delete="C:/xampp/htdocs/my-shop/profile/$fetch1[avatar]";
+                    if (is_file($delete)) {
+                        unlink($delete);
+                        $avatar=$_FILES["avatar"]["name"];
+                        move_uploaded_file($_FILES["avatar"]["tmp_name"], "C:/xampp/htdocs/my-shop/profile/".$_FILES["avatar"]["name"]);
+                    } else {
+                        echo "<script>alert('Something went wrong. Please try again later!')</script>";
+                        header("refresh:1; url=index?user=".base64_encode(strrev($user2)));
+                    }
+                }
+                $profile1=user::profile_update($id, $name, $date_of_birth, $address, $avatar);
+                $pro1=true;
+            }
+            if ($profile1==true && $pro1==true) {
+                echo "
+                    <script>
+                       alert('profile update successfully!');
+                    </script> 
+                    ";
+                header("refresh:1; url=index?user=".base64_encode(strrev($user2)));
+            }
+            $otp=false;
+            if(isset($_POST["change_password"])){
+                date_default_timezone_set('Asia/Kolkata');
+                $current_date_time=date("Y:m:d H:i:s");
+                $query1="SELECT * FROM user WHERE username='$user1'";
+                $result1=$conn->query($query1);
+                $row1=$result1->fetch_assoc();
+                $email=$row1["email"];
+                $otp=rand(100000, 999999);
+                $message=strval($otp);
+                $subject="Verfication code:$message";
+                $body="
+                <div style='border: 1px solid gray; border-radius: 5px;'>
+                    <p style='text-align: center;'>My-shop</p>
+                    <h3 style='text-align: center;'>Verfication email change password</h3>
+                    <hr>
+                    <p style='margin-left: 20px; margin-top: 30px;'>Please use the verfication code below to change password</p>
+                    <h2 style='text-align: center; color: black;'>$message</h2>
+                    <p style='margin-left: 20px;'>Don't share OTP with anyone.This OTP expire with in 15 minutes</p>
+                </div>
+                <p style='color: grey; margin-left: 20px;'>You receviwed this email to let you know about important change your password in My-shop</p>
+                <p style='color: grey; margin-left: 20px;'>@ 2023 My-shop website Srivilliputhur Virudhunagar Tamilnadu,India</p>
                 ";
-            header("refresh:1; url=index?user=".base64_encode(strrev($user1)));
-        }
-        $otp=false;
-        if(isset($_POST["change_password"])){
-            date_default_timezone_set('Asia/Kolkata');
-            $current_date_time=date("Y:m:d H:i:s");
-            $query1="SELECT * FROM user WHERE username='$user1'";
-            $result1=$conn->query($query1);
-            $row1=$result1->fetch_assoc();
-            $email=$row1["email"];
-            $otp=rand(100000, 999999);
-            $message=strval($otp);
-            $subject="Verfication code:$message";
-            $body="
-            <div style='border: 1px solid gray; border-radius: 5px;'>
-                <p style='text-align: center;'>My-shop</p>
-                <h3 style='text-align: center;'>Verfication email change password</h3>
-                <hr>
-                <p style='margin-left: 20px; margin-top: 30px;'>Please use the verfication code below to change password</p>
-                <h2 style='text-align: center; color: black;'>$message</h2>
-                <p style='margin-left: 20px;'>Don't share OTP with anyone.This OTP expire with in 15 minutes</p>
-            </div>
-            <p style='color: grey; margin-left: 20px;'>You receviwed this email to let you know about important change your password in My-shop</p>
-            <p style='color: grey; margin-left: 20px;'>@ 2023 My-shop website Srivilliputhur Virudhunagar Tamilnadu,India</p>
-            ";
-            $mail=new PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host='smtp.gmail.com';
-            $mail->SMTPAuth=true;
-            $mail->Username='YOUR_EMAIL';
-            $mail->Password='YOUR_Password';
-            $mail->SMTPSecure='ssl';
-            $mail->Port=465;
-            $mail->setFrom('YOUR_EMAIL');
-            $mail->addAddress($email);
-            $mail->isHTML(true);
-            $mail->Subject=$subject;
-            $mail->Body=$body;
-            $mail->send();
-            if($mail->send()){
-                $insert="UPDATE user SET otp='$message',otp_verify='1',otp_verify_time='$current_date_time' WHERE email='$email'";
-                if($conn->query($insert)){
-                    echo "<script>alert('OTP send successful. Please check your email!')</script>";
-                    header("refresh:1; url=otp-verify");
+                $mail=new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host='smtp.gmail.com';
+                $mail->SMTPAuth=true;
+                $mail->Username='YOUR_EMAIL';
+                $mail->Password='YOUR_Password';
+                $mail->SMTPSecure='ssl';
+                $mail->Port=465;
+                $mail->setFrom('YOUR_EMAIL');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject=$subject;
+                $mail->Body=$body;
+                $mail->send();
+                if($mail->send()){
+                    $insert="UPDATE user SET otp='$message',otp_verify='1',otp_verify_time='$current_date_time' WHERE email='$email'";
+                    if($conn->query($insert)){
+                        echo "<script>alert('OTP send successful. Please check your email!')</script>";
+                        header("refresh:1; url=otp-verify");
+                    }else{
+                        echo "<script>alert('Something went wrong.Please try again later!')</script>";
+                        header("refresh:1; url=index?user".base64_encode(strrev($user2)));
+                    }
                 }else{
                     echo "<script>alert('Something went wrong.Please try again later!')</script>";
-                    header("refresh:1; url=index?user".base64_encode(strrev($user1)));
+                    header("refresh:1; url=index?user".base64_encode(strrev($user2)));
                 }
-            }else{
-                echo "<script>alert('Something went wrong.Please try again later!')</script>";
-                header("refresh:1; url=index?user".base64_encode(strrev($user1)));
-            }
 
-        }
-        ?>
+            }
+            ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -223,14 +223,15 @@ if ($user1==$users){
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script src="js/validate.js"></script>
+    
 </body>
 
 </html>
     <?php }else{
-     header("Location: login");
+        header("Location: login");
     } 
     }else{
-     header("Location: login");
+        header("Location: login");
     }
 }else{
     header("Location: login");

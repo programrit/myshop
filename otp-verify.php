@@ -16,6 +16,7 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     if(isset($_POST["resend_otp"])){
         date_default_timezone_set('Asia/Kolkata');
         $current_date_time=date("Y:m:d H:i:s");
@@ -59,11 +60,11 @@ if (session::get('is_login')) {
                 header("refresh:1; url=otp-verify");
             }else{
                 echo "<script>alert('Something went wrong.Please try again later!')</script>";
-                header("refresh:1; url=index?user".base64_encode(strrev($user1)));
+                header("refresh:1; url=index?user".base64_encode(strrev($user2)));
             }
         }else{
             echo "<script>alert('Something went wrong.Please try again later!')</script>";
-            header("refresh:1; url=index?user".base64_encode(strrev($user1)));
+            header("refresh:1; url=index?user".base64_encode(strrev($user2)));
         }
     }
     $msg=null;

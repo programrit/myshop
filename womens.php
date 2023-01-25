@@ -8,7 +8,8 @@ if (session_status()===PHP_SESSION_NONE) {
     echo"<script>alert('Session not start')</script>";
 }
 if (session::get('is_login')) {
-    $user1=session::get('username');?>
+    $user1=session::get('username');
+    $user2=session::get('id');?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -12,6 +12,7 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     $sql=mysqli_query($conn,"SELECT * FROM user WHERE username='$user1'");
     $row=mysqli_fetch_array($sql);
     $status="pending";

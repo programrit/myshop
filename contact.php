@@ -9,6 +9,7 @@ if (session_status()===PHP_SESSION_NONE) {
 }
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     $info=false;
     $contact=false;
     if(isset($_POST["submit"])){

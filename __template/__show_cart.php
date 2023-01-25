@@ -37,7 +37,7 @@
                                 $query1=mysqli_query($conn,"SELECT quantity,product_id FROM mens_size WHERE product_id='$row[product_id]' AND size='$row[size]'");
                                 $qty=mysqli_fetch_array($query1);
                                 if($row["product_id"]==$qty["product_id"]){?>
-                                    <input type="number" class="form-control quantity" name="quantity" onchange="this.form.submit();" value="<?php echo $row["quantity"]; ?>" min="1" max="<?php echo $qty["quantity"]?>">
+                                    <input type="number" class="form-control quantity" name="quantity" onchange="this.form.submit();" value="<?php echo $row["quantity"]; ?>" min="1" max="<?php if($qty['quantity']>=10){ echo 10;}else if($qty['quantity']==0){ echo "<script>alert('Product stock is not available!')</script>";}else{ echo $qty['quantity'];}?>">
                                 <?php }?>
                             </td>
                             <td class="align-middle">₹<?php echo $row['price']; ?></td>

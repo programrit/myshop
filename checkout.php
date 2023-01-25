@@ -15,6 +15,7 @@ $check1=false;
 $msg=null;
 if (session::get('is_login')) {
     $user1=session::get('username');
+    $user2=session::get('id');
     if(isset($_POST["place"])){
         $sql=mysqli_query($conn, "SELECT * FROM user WHERE username='$user1'");
         $row=mysqli_fetch_array($sql);
@@ -40,8 +41,8 @@ if (session::get('is_login')) {
     if($check==true && $out==true){
         $product_id=base64_encode($product_id);
         $size=base64_encode($size);
-        $msg="Order placed successfully. If you want recepit <a href='printout?id=$product_id&size=$size' target='_blank'> click</a>";
-        // header("refresh:10; url=order");
+        $msg="Order placed successfully. If you want recepit <a href='printout?id=$product_id&size=$size' target='_blank'> click here</a>. page render with in 10sec!";
+        header("refresh:10; url=order");
         
     }
     ?>
@@ -132,62 +133,71 @@ if (session::get('is_login')) {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-        var amount=document.getElementById("amount").value;
-        var name=document.getElementById("name").value;
-        var phone=document.getElementById("phone").value;
-        var address=document.getElementById("address").value;
-        var product_id=document.getElementById("product_id").value;
-        var product_name=document.getElementById("product_name").value;
-        var product_img=document.getElementById("img").value;
-        var size=document.getElementById("size").value;
-        var quantity=document.getElementById("quantity").value;
-        var price=document.getElementById("price").value;
-        var color=document.getElementById("color").value;
-        var options = {
-            "key": "YOUR_API_KEY", // Enter the Key ID generated from the Dashboard
-            "amount": amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "INR",
-            "name": "my-shop",
-            "description": "Online Transaction",
-            "image": "https://img.lovepik.com/element/45003/6056.png_300.png",
-            "handler": function (response){
-                //alert(response.razorpay_payment_id);
-                jQuery.ajax({
-                    type:"POST",
-                    url:"payment.php",
-                    data: "pay_id="+response.razorpay_payment_id+"&name="+name+"&phone="+phone+"&address="+address+"&product_id="+product_id+"&product_name="+product_name+"&product_img="+product_img+"&size="+size+"&color="+color+"&quantity="+quantity+"&price="+price,
-                    success:function(result){
-                        window.location.href="success.php";
-                    }
-                });
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
-            }
-        };
-        var rzp1 = new Razorpay(options);
-        // rzp1.on('payment.failed', function (response){
-        //         alert(response.error.code);
-        //         alert(response.error.description);
-        //         alert(response.error.source);
-        //         alert(response.error.step);
-        //         alert(response.error.reason);
-        //         alert(response.error.metadata.order_id);
-        //         alert(response.error.metadata.payment_id);
-        // });
-        document.getElementById('rzp-button1').onclick = function(e){
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        $('body').on('click', '.buy_now', function(e){
+            var totalAmount = $('#total').val();
+            var username =  $('#name').val();
+            var phone =  $('#phone').val();
+            var address =  $('#address').val();
+            // var id =  $('#user_id').val();
+            var product_id =  $('#product_id').val();
+            var product_name =  $('#product_name').val();
+            var img =  $('#img').val();
+            var quantity =  $('#quantity').val();
+            var size =  $('#size').val();
+            var color =  $('#color').val();
+            var price =  $('#price').val();
+            if(username=="" || username==null){
+                alert("Please enter your name");
+            }else if(phone=="" || phone==null){
+                alert("Please enter your phone no");
+            }else if(address=="" || address==null){
+                alert("Please enter your address");
+            }else{
+                var options = {
+                "key": "rzp_test_FTHxmaWdqiH2GI", // secret key id
+                "amount": (totalAmount * 100), // 2000 paise = INR 20
+                "name": "My-shop",
+                "description": "Payment",
+                "image": "https://img.lovepik.com/element/45003/6056.png_300.png",
+                "handler": function(response) {
+                    $.ajax({
+                        url: 'online-payment.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            totalAmount: totalAmount,
+                            username: username,
+                            phone: phone,
+                            address: address,
+                            product_id: product_id,
+                            product_name: product_name,
+                            img: img,
+                            quantity: quantity,
+                            size: size,
+                            color: color,
+                            price: price,
+                           
+                        },
+                        success: function(msg){
+                            var show=JSON.stringify(msg);
+                            alert(show);
+                            window.location.href = 'order';
+                        }
+                    });
+                },
+                "theme": {
+                    "color": "#528FF0"
+                }
+            };
+            var rzp1 = new Razorpay(options);
             rzp1.open();
             e.preventDefault();
-        } -->
-    
-
-   
-</script>
+            }
+        });
+    </script>
 </body>
 
 </html>

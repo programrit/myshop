@@ -9,7 +9,7 @@
                 $page=$conn->real_escape_string(isset($_GET["page"])?$_GET["page"]:1);
                 $page=htmlspecialchars($page);
                 if($page==null){
-                    $location=base64_encode(strrev($user1));
+                    $location=base64_encode(strrev($user2));
                     echo "<script>alert('Page is not found!')</script>";
                     echo "<script>window.location.href='index?user=$location'</script>";
                 }else{
@@ -58,7 +58,7 @@
             $disabled='disabled';
             ?>
           <li class="page-item <?php if($page==1){ echo $disabled;} ?>">
-            <a class="page-link" href="index?user=<?php echo base64_encode(strrev($user1));?>&page=<?php echo $previous;?>" aria-label="Previous">
+            <a class="page-link" href="index?user=<?php echo base64_encode(strrev($user2));?>&page=<?php echo $previous;?>" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
@@ -67,10 +67,10 @@
           if($pages){
             for($i=1;$i<=$pages;$i++){
                 ?>
-                <li class="page-item <?php if($i==$page){ echo $active;}?>"><a class="page-link" href="index?user=<?php echo base64_encode(strrev($user1));?>&page=<?php echo $i;?>"><?php echo $i;?></a></li>
+                <li class="page-item <?php if($i==$page){ echo $active;}?>"><a class="page-link" href="index?user=<?php echo base64_encode(strrev($user2));?>&page=<?php echo $i;?>"><?php echo $i;?></a></li>
               <?php }
           }else{
-            $location=base64_encode(strrev($user1));
+            $location=base64_encode(strrev($user2));
             echo "<script>alert('Page is not found!')</script>";
             echo "<script>window.location.href='index?user=$location'</script>";
           }
@@ -79,7 +79,7 @@
             $disabled='disabled';
             ?>
           <li class="page-item <?php if($page==$pages){ echo $disabled;} ?>">
-            <a class="page-link" href="index?user=<?php echo base64_encode(strrev($user1));?>&page=<?php echo $next;?>" aria-label="Next">
+            <a class="page-link" href="index?user=<?php echo base64_encode(strrev($user2));?>&page=<?php echo $next;?>" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

@@ -63,7 +63,7 @@
     // Related carousel
     $('.related-carousel').owlCarousel({
         loop: true,
-        margin: 29,
+        margin: 50,
         nav: false,
         autoplay: true,
         smartSpeed: 1000,
