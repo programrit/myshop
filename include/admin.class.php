@@ -86,12 +86,25 @@ class admin{
     }
     public static function update($id,$username,$email,$phone){
         $conn = DB::db();
-        $update="UPDATE user SET username='$username',email='$email',phone='$phone' WHERE id='$id'";
-        if($conn->query($update)===TRUE){
-                $user=true;
+        $select1=mysqli_query($conn,"SELECT * FROM user WHERE username='$username'");
+        $select2=mysqli_query($conn,"SELECT * FROM user WHERE email='$email'");
+        $select3=mysqli_query($conn,"SELECT * FROM user WHERE phone='$phone'");
+        if(mysqli_num_rows($select1)>0){
+
         }else{
-                $user=false;
-                $user=$conn->error;
+            $update1=mysqli_query($conn,"UPDATE user SET username='$username' WHERE id='$id'");
+            $user=true;
+        }if(mysqli_num_rows($select2)>0){
+
+        }else{
+            $update2=mysqli_query($conn,"UPDATE user SET email='$email' WHERE id='$id'");
+            $user=true;
+        }
+        if(mysqli_num_rows($select3)>0){
+
+        }else{
+            $update3=mysqli_query($conn,"UPDATE user SET phone='$phone' WHERE id='$id'");
+            $user=true;
         }
         return $user;
 
@@ -224,29 +237,3 @@ class admin{
 
 
 
-
-
-// $sqli=mysqli_query($conn,"SELECT * FROM user WHERE username='$username'");
-// $sqli1=mysqli_query($conn, "SELECT * FROM user WHERE phone='$phone'");
-// $sqli2=mysqli_query($conn,"SELECT * FROM user WHERE email='$email'");
-// if(mysqli_num_rows($sqli)>0){
-//     header("Location: add-user?exist=$username already exist");
-//     echo"<script>window.location.href='/my-shop/admin/aedit?id=$id1'</script>";
-// }else if(mysqli_num_rows($sqli1)>0){
-//     header("Location: add-user?exist=$phone already exist");
-//     echo"<script>window.location.href='/my-shop/admin/edit?id=$id1'</script>";
-// }
-// else if(mysqli_num_rows($sqli2)>0){
-//     header("Location: add-user?exist=$email already exist");
-//     echo"<script>window.location.href='/my-shop/admin/edit?id=$id1'</script>";
-// }
-// else{
-//     $insert="UPDATE user SET username";
-//     if($conn->query($insert)===TRUE){
-//         $user=true;
-//     }else{
-//         $user=false;
-//         $user=$conn->error;
-//     }
-// }
-// return $user;

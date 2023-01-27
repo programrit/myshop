@@ -4,6 +4,7 @@ include('../include/admin.class.php');
 include('../include/databse.class.php');
 $conn=DB::db();
 admin_session::start();
+error_reporting(0);
 if (session_status()===PHP_SESSION_NONE) {
     echo"<script>alert('Session not start')</script>";
 }
