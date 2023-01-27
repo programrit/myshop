@@ -44,7 +44,7 @@ CREATE TABLE `admin_user` (
 --
 
 INSERT INTO `admin_user` (`id`, `email`, `password`, `phone`, `active`, `otp`, `otp_verify`, `time`, `profile`) VALUES
-(1, 'admin', 'Admin123@45', '9360392849', 1, 496551, 3, '2023-01-03 13:54:36', 'white.jpeg');
+(1, 'admin', 'Admin123@45', '9876543210', 1, 496551, 3, '2023-01-03 13:54:36', 'white.jpeg');
 
 -- --------------------------------------------------------
 
