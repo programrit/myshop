@@ -138,7 +138,12 @@ class user{
 	            $id=$row1["user_id"];
 	            session::set('username', $username);
 	            session::set('id', $id);
-				header("Location: index?user=".base64_encode(strrev($id)));
+				if(empty($row1["password"])){
+                    header("Location: index?user=".base64_encode(strrev($id)));
+                }else{
+                    header("Location: login?exist=Email already exist you can't login with google!");
+                    $users=false;
+                }
 			}else{
 				header("Location: login?exist=Email already exist you can't login with google!");
                 $users=false;
