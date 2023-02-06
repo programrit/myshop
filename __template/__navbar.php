@@ -177,7 +177,7 @@
             </div>
 
         </nav>
-        <div id="carouselExampleControls" class="carousel slide py-3" data-ride="carousel">
+        <div id="carouselExampleControls" class="carousel slide py-3 carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active" style="height: 30rem;">
                     <img class="d-flex w-100 h-100" src="/my-shop/img/img-1.jpg" alt="First slide">
